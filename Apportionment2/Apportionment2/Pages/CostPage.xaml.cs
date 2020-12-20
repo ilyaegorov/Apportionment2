@@ -462,8 +462,11 @@ namespace Apportionment2.Pages
 
         void OnDateSelected(object sender, DateChangedEventArgs args)
         {
+            if (_cost.DateCreate == args.NewDate.ToString(App.DateFormat))
+                return;
+            
             _cost.DateCreate = args.NewDate.ToString(App.DateFormat);
-           // _hasUnsavedData = true;
+            _hasUnsavedData = true;
         }
 
         protected  override bool OnBackButtonPressed()

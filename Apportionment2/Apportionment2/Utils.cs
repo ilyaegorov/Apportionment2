@@ -128,12 +128,22 @@ namespace Apportionment2
             return cur.Count > 0;
         }
 
-            internal static DateTime DateFromString(string date)
+        internal static DateTime DateFromString(string date)
         {
             if (string.IsNullOrEmpty(date) || date == "null")
                 return DateTime.Today;
             else
                 return  DateTime.ParseExact(date, App.DateFormat, System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        internal static string GetPrettyDate(string systemDate)
+        {
+            if (string.IsNullOrEmpty(systemDate) || systemDate == "null")
+                return "";
+
+            DateTime date = DateFromString(systemDate);
+
+            return date.ToString("dd MMMM yyyy");
         }
     }
 }

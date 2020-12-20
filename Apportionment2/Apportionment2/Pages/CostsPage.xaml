@@ -51,7 +51,11 @@
                             <StackLayout>
                                 <!--<BoxView Color="#708090" WidthRequest="100" HeightRequest="1" /> -->
                                 <StackLayout Style="{StaticResource StackLayout}" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding Color}">
-                                    <Label Text="{Binding CostName}" FontSize="15" TextColor="Black" WidthRequest="245"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start" Padding="10,0,0,0"/>
+
+                                    <StackLayout Style="{StaticResource StackLayout}" HorizontalOptions="FillAndExpand" Orientation="Vertical" BackgroundColor="{Binding Color}">
+                                        <Label Text="{Binding CostName}" FontSize="15" TextColor="Black" WidthRequest="245"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start" Padding="10,0,0,0"/>
+                                        <Label Text="{Binding CostDate}" FontSize="10" TextColor="Gray" WidthRequest="245"  HorizontalOptions="StartAndExpand" VerticalOptions="Start" VerticalTextAlignment="Start" Padding="10,0,0,0"/>
+                                    </StackLayout>
                                     <Label Text="" FontSize="15" TextColor="Black" WidthRequest="1" HeightRequest="40"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start"/>
                                     <Label Text="{Binding CurrencyList}" FontSize="15" TextColor="Black"  WidthRequest="35"    HorizontalOptions="End"/>
                                     <Label Text="{Binding CostsValues}" FontSize="15" WidthRequest="85" TextColor="Green"   HorizontalOptions="End" HorizontalTextAlignment="End" Padding="0,0,10,0"/>

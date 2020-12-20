@@ -18,7 +18,6 @@ namespace Apportionment2.ViewModels
         {
             Cost = costs;
             Color = isOdd ? "#F5F5F5" : "#ffffff";
-           // Color1 = isOdd ? Xamarin.Forms.Color.FromHex("#F5F5F5") : Xamarin.Forms.Color.LightGray;
         }
         
         public string id => Cost.id;
@@ -27,8 +26,11 @@ namespace Apportionment2.ViewModels
         public string CostName
         {
             get { return Cost.CostName; }
-           // get { return (Cost.CostName.Length > 60) ? Cost.CostName.Substring(0, 57) + "..." : Cost.CostName; }
-            //get { return (_cost.CostName.Length > 25) ? _cost.CostName.Substring(0,23) + "..." :_cost.CostName; }
+        }
+
+        public string CostDate
+        {
+            get { return  Utils.GetPrettyDate(Cost.DateCreate); }
         }
 
         public string DateCreate => Cost.DateCreate;

@@ -63,7 +63,8 @@
             <DatePicker x:Name ="CostDate"
                         FontSize="15"
                         Format="D"
-                        DateSelected ="OnDateSelected" >
+                        DateSelected ="OnDateSelected" 
+                        HorizontalOptions="Fill">
             </DatePicker>
         </StackLayout>
 

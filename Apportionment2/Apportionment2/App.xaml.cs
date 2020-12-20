@@ -52,7 +52,6 @@ namespace Apportionment2
         public static SQLiteConnection Database = new SQLiteConnection(DependencyService.Get<ISqLite>().GetDatabasePath(DatabaseName));
         public const string DatabaseName = "Trips.db";
         public const string DateFormat = "yyyy-MM-dd HH-mm-ss";
-        public static string DataEnd = SystemDate.ToString(DateFormat);
-        public static DateTime SystemDate = new DateTime(2099, 01, 01);
+        public static string DataEnd = new DateTime(2099, 01, 01).ToString(DateFormat);
     }
 }
