@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:Apportionment2.Extensions;assembly=Apportionment2"
+             xmlns:apportionment="clr-namespace:Apportionment2;assembly=Apportionment2"
+             xmlns:pages="clr-namespace:Apportionment2.Pages;assembly=Apportionment2"
+             xmlns:viewModels="clr-namespace:Apportionment2.ViewModels;assembly=Apportionment2"
+             x:Class="Apportionment2.Pages.CurrenciesPage"
+             Title="Currencies">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="#708090" />
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#708090" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="#708090Layout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#708090" />
+            </Style>
+            <Style x:Key="StackLayout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+            </Style>
+            <Style x:Key="FrameSettings" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="OutlineColor" Value="#708090" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <SearchBar x:Name="SearchBar" 
+                   BackgroundColor="#708090"
+                   TextChanged="SearchBar_TextChanged">
+
+        </SearchBar>
+
+        <ListView x:Name="CurrenciesListAll"
+                  ItemTapped="CurrenciesList_OnItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                    <ViewCell.View>
+                     
+                    <StackLayout Style="{StaticResource StackLayout}" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label Text="{Binding id}" Padding ="10,0,0,0" FontSize="15" TextColor="Black" HorizontalOptions="Fill" VerticalTextAlignment="Start"/>
+                                <Label Text="{Binding Code}" FontSize="15" TextColor="Black" HorizontalOptions="Fill"/>
+                                <Label Text="{Binding Name}" FontSize="15" WidthRequest="80" TextColor="Black"   HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start"/>
+                    </StackLayout>
+                    </ViewCell.View>
+                </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+</ContentPage>

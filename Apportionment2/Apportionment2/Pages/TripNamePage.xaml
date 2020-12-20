@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Apportionment2.Pages.TripNamePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="#708090" />
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#708090" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="#708090Layout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#708090" />
+            </Style>
+            <Style x:Key="StackLayout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+            </Style>
+            <Style x:Key="FrameSettings" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="OutlineColor" Value="#708090" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Style="{StaticResource StackLayout}"  Orientation="Vertical">
+            <Entry x:Name ="TripNameEntry"
+                VerticalOptions="Start" 
+                Unfocused="TripNameEntry_OnUnfocused"
+                HorizontalOptions="FillAndExpand"/>
+            <StackLayout Style="{StaticResource StackLayout}"  Orientation="Horizontal">
+                
+                <Label x:Name ="DateStartLabel"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"/>
+                
+                <DatePicker x:Name ="DateStartDatePicker"
+                            TextColor="Gray"
+                            VerticalOptions="StartAndExpand" 
+                            Format="D"
+                            DateSelected="DateStartDatePicker_OnDateSelected"
+                            HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout Style="{StaticResource StackLayout}"  Orientation="Horizontal">
+
+                <Label x:Name ="DateEndLabel"
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"/>
+                
+                <DatePicker x:Name ="DateEndDatePicker"
+                            Format="D"
+                            MaximumDate="01/01/2099"
+                            VerticalOptions="CenterAndExpand" 
+                            DateSelected ="DateEndDatePicker_OnDateSelected" 
+                            HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

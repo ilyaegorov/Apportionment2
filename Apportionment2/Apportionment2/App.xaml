@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Apportionment2.App">
+    <Application.Resources>
+        <DataTemplate x:Key="CurrenciesSearchTemplate">
+            <Grid Padding="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.15*" />
+                    <ColumnDefinition Width="0.15*" />
+                    <ColumnDefinition Width="0.70*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" 
+                       Text="{Binding id}" 
+                       FontAttributes="Bold" />
+                <Label Grid.Column="1" 
+                       Text="{Binding Code}" 
+                       FontAttributes="Bold" />
+                <Label Grid.Column="2" 
+                       Text="{Binding Name}" 
+                       FontAttributes="Bold" />
+            </Grid>
+        </DataTemplate>
+    </Application.Resources>
+</Application>

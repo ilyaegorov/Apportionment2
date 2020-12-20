@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:Apportionment2.Extensions;assembly=Apportionment2"
+             xmlns:apportionment="clr-namespace:Apportionment2;assembly=Apportionment2"
+             x:Class="Apportionment2.Pages.CostsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="#708090" />
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#708090" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="#708090Layout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#708090" />
+            </Style>
+            <Style x:Key="StackLayout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+            </Style>
+            <Style x:Key="FrameSettings" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="OutlineColor" Value="#708090" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Menu" Clicked="MenuItem_OnClicked"  Order="Primary" Priority="0"/>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout BackgroundColor="#F5F5F5">
+        <extensions:ListViewMod x:Name="CostsList"
+                                ItemsSource="{Binding}"
+                                ItemTapped="CostListItem_OnItemTapped"
+                                LongClicked ="CostListItem_OnLongClicked"
+                                AbsoluteLayout.LayoutFlags="All"  
+                                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                SeparatorVisibility="None"
+                                HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout>
+                                <!--<BoxView Color="#708090" WidthRequest="100" HeightRequest="1" /> -->
+                                <StackLayout Style="{StaticResource StackLayout}" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding Color}">
+                                    <Label Text="{Binding CostName}" FontSize="15" TextColor="Black" WidthRequest="245"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start" Padding="10,0,0,0"/>
+                                    <Label Text="" FontSize="15" TextColor="Black" WidthRequest="1" HeightRequest="40"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start"/>
+                                    <Label Text="{Binding CurrencyList}" FontSize="15" TextColor="Black"  WidthRequest="35"    HorizontalOptions="End"/>
+                                    <Label Text="{Binding CostsValues}" FontSize="15" WidthRequest="85" TextColor="Green"   HorizontalOptions="End" HorizontalTextAlignment="End" Padding="0,0,10,0"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </extensions:ListViewMod>
+
+        <ImageButton Source="Add.png"
+                     BackgroundColor="Transparent"
+                     HorizontalOptions="End"
+                     WidthRequest="100"
+                     VerticalOptions="CenterAndExpand"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"  
+                     AbsoluteLayout.LayoutBounds="0.88,0.99,50,50" 
+                     Clicked="AddButton_OnClicked" />
+
+    </AbsoluteLayout>
+
+</ContentPage>

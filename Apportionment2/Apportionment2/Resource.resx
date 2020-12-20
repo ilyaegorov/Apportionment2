@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddRemoveUserTabPageTitle" xml:space="preserve">
+    <value>Edit participants</value>
+    <comment>Редактирование участников</comment>
+  </data>
+  <data name="AddUserPageAddInAllPots" xml:space="preserve">
+    <value>Add in all pots</value>
+    <comment>Добавить в проект</comment>
+  </data>
+  <data name="AddUserPageAddInThisPot" xml:space="preserve">
+    <value>Add in this pot</value>
+    <comment>Добавить в этот котел</comment>
+  </data>
+  <data name="AddUserPageAddUserButton" xml:space="preserve">
+    <value>Add</value>
+    <comment>Добавить</comment>
+  </data>
+  <data name="AddUserPageModeLabel" xml:space="preserve">
+    <value>Mode</value>
+    <comment>Режим добавления нового пользователя</comment>
+  </data>
+  <data name="AddUserPagePotsUsers" xml:space="preserve">
+    <value>Pot participants</value>
+    <comment>Участники котла</comment>
+  </data>
+  <data name="AddUserPageSelectFromOtherPotsLabel" xml:space="preserve">
+    <value>Select from other pots</value>
+    <comment>Выбрать из других котлов</comment>
+  </data>
+  <data name="AddUserPageTitel" xml:space="preserve">
+    <value>+Add</value>
+    <comment>Заголовок страницы "Добавить участника"</comment>
+  </data>
+  <data name="AddUserPageUserNameEntryPlaceholder" xml:space="preserve">
+    <value>The name of new participant</value>
+    <comment>Имя нового участника</comment>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>Назад</comment>
+  </data>
+  <data name="CalcApportionItog" xml:space="preserve">
+    <value>Itog</value>
+    <comment>Итог по проекту</comment>
+  </data>
+  <data name="CalcApportionMenuButton" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Название кнопки меню</comment>
+  </data>
+  <data name="CalcApportionPageAddPot" xml:space="preserve">
+    <value>Add new pot</value>
+    <comment>Добавить новый котел</comment>
+  </data>
+  <data name="CalcApportionPageCalc" xml:space="preserve">
+    <value>Calculate</value>
+    <comment>Рассчитать</comment>
+  </data>
+  <data name="CalcApportionPageDeletePot" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Удалить котел</comment>
+  </data>
+  <data name="CalcApportionPageEditPot" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Редактировать котел</comment>
+  </data>
+  <data name="CalcApportionPageErrorDeleteLastPotMessage" xml:space="preserve">
+    <value>Could  not delete the pot. Must be one pot.</value>
+    <comment>Сообщение при попытке удалить единственный котел.</comment>
+  </data>
+  <data name="CalcApportionPageErrorDeleteMessage" xml:space="preserve">
+    <value>Could  not delete the pot. Sum is not null.</value>
+    <comment>Сообщение об ошибке при удалении котла.</comment>
+  </data>
+  <data name="CalcApportionPageErrorDeleteTitle" xml:space="preserve">
+    <value>Could not delete pot.</value>
+    <comment>Заголовок сообщения об ошибке при удалении котла</comment>
+  </data>
+  <data name="CalcApportionPageExit" xml:space="preserve">
+    <value>Exit</value>
+    <comment>Выйти</comment>
+  </data>
+  <data name="CalcApportionPageMenuTitle" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Меню</comment>
+  </data>
+  <data name="CalcApportionPageNewPot" xml:space="preserve">
+    <value>New pot</value>
+    <comment>Новый котел</comment>
+  </data>
+  <data name="CalcApportionPageNewPotItem" xml:space="preserve">
+    <value>New expense</value>
+    <comment>Новый расход</comment>
+  </data>
+  <data name="CalcApportionPageNextPayerLabel" xml:space="preserve">
+    <value>Next payer</value>
+    <comment>Следующий плательщик</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Отменить</comment>
+  </data>
+  <data name="Characteristic" xml:space="preserve">
+    <value>Characterisic</value>
+    <comment>Характеристика</comment>
+  </data>
+  <data name="CharacteristicAlco" xml:space="preserve">
+    <value>Drinking.</value>
+    <comment>Пьющий.</comment>
+  </data>
+  <data name="CharacteristicSumSpendAboveMiddle" xml:space="preserve">
+    <value>Гусар. Любит шикануть, но умеет вовремя остановиться. Часто предлагает заплатить по счету, но с удовольствием уступает эту привилегию меценату. </value>
+    <comment>Больше среднего</comment>
+  </data>
+  <data name="CharacteristicSumSpendMax" xml:space="preserve">
+    <value>Меценат. Щедр, иногда излишне. Платит за всех и за все. Если и не душа, то уж точно кошелек компании.</value>
+    <comment>Заплатил больше всех.</comment>
+  </data>
+  <data name="CharacteristicSumSpendMiddle" xml:space="preserve">
+    <value>Экономист.Разумно щедр: не расточителен, но и не скуп. Находит общий язык со своей внутренней жабой.</value>
+    <comment>Меньше среднего</comment>
+  </data>
+  <data name="CharacteristicSumSpendMin" xml:space="preserve">
+    <value>Должник.Жаден. Придерживает свои кровные до последнего. Коллектив его пока терпит.</value>
+    <comment>Заплатил меньше всех.</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Удалить</comment>
+  </data>
+  <data name="EditUserPageTitle" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Редактировать участника</comment>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+    <comment>Да</comment>
+  </data>
+  <data name="PotItemPageAddRemoveUser" xml:space="preserve">
+    <value>Add/Remove participant</value>
+    <comment>Добавить удалить пользователя</comment>
+  </data>
+  <data name="PotItemPageSelectEntryPlaceholder" xml:space="preserve">
+    <value>The name of the expense</value>
+    <comment>Наименование расхода</comment>
+  </data>
+  <data name="PotItemPageSelectUserLabel" xml:space="preserve">
+    <value>Select participant</value>
+    <comment>Выбор пользователей</comment>
+  </data>
+  <data name="PotPageAddItem" xml:space="preserve">
+    <value>Add item</value>
+    <comment>Добавление нового расхода в котел</comment>
+  </data>
+  <data name="PotPageAddUser" xml:space="preserve">
+    <value>Participants</value>
+    <comment>Добавление нового участника котла</comment>
+  </data>
+  <data name="PotPageDeletePotItem" xml:space="preserve">
+    <value>Delete item</value>
+    <comment>Удалить расход</comment>
+  </data>
+  <data name="PotPageEditPotItem" xml:space="preserve">
+    <value>Edit item</value>
+    <comment>Редактировать расход.</comment>
+  </data>
+  <data name="PotPageItog" xml:space="preserve">
+    <value>Itog pot</value>
+    <comment>Итог по котлу</comment>
+  </data>
+  <data name="PotPageMenuButton" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Название кнопки меню</comment>
+  </data>
+  <data name="PotPageMenuTitle" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Меню</comment>
+  </data>
+  <data name="PotPageMovePageItem" xml:space="preserve">
+    <value>Move to another pot</value>
+    <comment>Переместить расход в другой котел</comment>
+  </data>
+  <data name="RemoveUserDelete" xml:space="preserve">
+    <value>Delete participant</value>
+    <comment>Полностью удалить пользователя</comment>
+  </data>
+  <data name="RemoveUserPageFromAllPot" xml:space="preserve">
+    <value>Remove from all pots</value>
+    <comment>Удалить из проекта</comment>
+  </data>
+  <data name="RemoveUserPageFromThisPot" xml:space="preserve">
+    <value>Remove from this pot</value>
+    <comment>Удалить из котла</comment>
+  </data>
+  <data name="RemoveUserPageMode" xml:space="preserve">
+    <value>Mode</value>
+    <comment>Режим удаления пользователя</comment>
+  </data>
+  <data name="RemoveUserPagePotUsersLabel" xml:space="preserve">
+    <value>Pot participants</value>
+    <comment>Участники котла</comment>
+  </data>
+  <data name="RemoveUserPageRemoveExistingUserLabel" xml:space="preserve">
+    <value>Remove an existing participant</value>
+    <comment>Удалить участника котла</comment>
+  </data>
+  <data name="RemoveUserPageTitle" xml:space="preserve">
+    <value>-Remove</value>
+    <comment>Заголовок страницы "Удалить участника"</comment>
+  </data>
+  <data name="ResultApportionmentPageItog" xml:space="preserve">
+    <value>Itog</value>
+    <comment>Итог по котлу</comment>
+  </data>
+  <data name="ResultApportionmentPagePerDelta" xml:space="preserve">
+    <value>Delta</value>
+    <comment>Разница</comment>
+  </data>
+  <data name="ResultApportionmentPagePerUser" xml:space="preserve">
+    <value>PerParticipant</value>
+    <comment>С каждого участника</comment>
+  </data>
+  <data name="ResultApportionmentPageSaved" xml:space="preserve">
+    <value>Saved</value>
+    <comment>Сохранено</comment>
+  </data>
+  <data name="ResultApportionmentPageSaveInFileButton" xml:space="preserve">
+    <value>Save result</value>
+    <comment>Сохранить результат.</comment>
+  </data>
+  <data name="ResultApportionmentPageSpend" xml:space="preserve">
+    <value>Spend</value>
+    <comment>Потрачено</comment>
+  </data>
+  <data name="ResultApportionmentPageTotalPay" xml:space="preserve">
+    <value>Total payable</value>
+    <comment>Итого к уплате</comment>
+  </data>
+  <data name="ResultApportionmentPageTotalReturn" xml:space="preserve">
+    <value>Total return</value>
+    <comment>Итого к возврату</comment>
+  </data>
+  <data name="ResultApportionmentPageUsers" xml:space="preserve">
+    <value>Participants</value>
+    <comment>Участники котла с весами</comment>
+  </data>
+  <data name="SetSharePageLabel" xml:space="preserve">
+    <value>Set share for participants</value>
+    <comment>Установить доли для участников</comment>
+  </data>
+  <data name="SetSharePageTitle" xml:space="preserve">
+    <value>Set share</value>
+    <comment>Утановить доли</comment>
+  </data>
+  <data name="StartMenuItemAbout" xml:space="preserve">
+    <value>About app</value>
+    <comment>О программе</comment>
+  </data>
+  <data name="StartMenuItemExit" xml:space="preserve">
+    <value>Exit</value>
+    <comment>Выход</comment>
+  </data>
+  <data name="StartMenuItemHelp" xml:space="preserve">
+    <value>Help</value>
+    <comment>Помощь</comment>
+  </data>
+  <data name="StartMenuItemLoad" xml:space="preserve">
+    <value>Load journey</value>
+    <comment>Загрузка сохраненного распределения</comment>
+  </data>
+  <data name="StartMenuItemStart" xml:space="preserve">
+    <value>Start new journey</value>
+    <comment>Начать новое распределение</comment>
+  </data>
+  <data name="StartPage1stPot" xml:space="preserve">
+    <value>1st pot</value>
+    <comment>Первый котел</comment>
+  </data>
+  <data name="StartPageNewProject" xml:space="preserve">
+    <value>New journey</value>
+    <comment>Новый проект</comment>
+  </data>
+  <data name="UserPageContactsButtom" xml:space="preserve">
+    <value>Contacts</value>
+    <comment>Контакты</comment>
+  </data>
+  <data name="UserViewModelInputName" xml:space="preserve">
+    <value>Input the new name</value>
+    <comment>Введите новое имя</comment>
+  </data>
+  <data name="UserViewModelUserName" xml:space="preserve">
+    <value>Name</value>
+    <comment>Имя участника</comment>
+  </data>
+  <data name="CalcApportionPageAddUser" xml:space="preserve">
+    <value>Add participant</value>
+    <comment>Добавить участника</comment>
+  </data>
+  <data name="CalcApportionPagePotListTitle" xml:space="preserve">
+    <value>Choose the pot</value>
+    <comment>Выберите котел</comment>
+  </data>
+  <data name="PotPageGoToMain" xml:space="preserve">
+    <value>Back on main</value>
+    <comment>Вернуться на главную</comment>
+  </data>
+  <data name="CostsPageATripNameEntryPlaceholder" xml:space="preserve">
+    <value>Enter the name</value>
+    <comment>Введите имя проекта</comment>
+  </data>
+  <data name="CalcApportionPageExitFromProj" xml:space="preserve">
+    <value>Leave the journey</value>
+    <comment>Выйти из проекта</comment>
+  </data>
+  <data name="ResultApportionmentPageCostName" xml:space="preserve">
+    <value>Pot</value>
+    <comment>Наименование котла</comment>
+  </data>
+  <data name="LoadApportionPageDeleteApportionment" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Удалить проект</comment>
+  </data>
+  <data name="CalcApportionPageBorrowed" xml:space="preserve">
+    <value>borrowed</value>
+    <comment>занял</comment>
+  </data>
+  <data name="CalcApportionPageDebt" xml:space="preserve">
+    <value>Add debt</value>
+    <comment>Долги</comment>
+  </data>
+  <data name="CalcApportionPageLent" xml:space="preserve">
+    <value>lent</value>
+    <comment>дал взаймы</comment>
+  </data>
+  <data name="DebtPageAdd" xml:space="preserve">
+    <value>Add debt</value>
+    <comment>Добавить долг</comment>
+  </data>
+  <data name="DebtPageDebtsLabel" xml:space="preserve">
+    <value>Debts</value>
+    <comment>Долги</comment>
+  </data>
+  <data name="DebtPageDelete" xml:space="preserve">
+    <value>Delete debt</value>
+    <comment>Удалить долг</comment>
+  </data>
+  <data name="DebtPageEdit" xml:space="preserve">
+    <value>Edit debt</value>
+    <comment>Изменить долг</comment>
+  </data>
+  <data name="DebtPageGoToMain" xml:space="preserve">
+    <value>On main page</value>
+    <comment>На главную</comment>
+  </data>
+  <data name="DebtPageMenu" xml:space="preserve">
+    <value>Menu</value>
+    <comment>Меню</comment>
+  </data>
+  <data name="DebtsViewModelCreditor" xml:space="preserve">
+    <value>Creditor</value>
+    <comment>Заемщик</comment>
+  </data>
+  <data name="DebtsViewModelDebitor" xml:space="preserve">
+    <value>Debitor</value>
+    <comment>Должник</comment>
+  </data>
+  <data name="DebtsViewModelSum" xml:space="preserve">
+    <value>Sum</value>
+    <comment>Сумма</comment>
+  </data>
+  <data name="PotPagePotNamePlaceHolder" xml:space="preserve">
+    <value>Pot name</value>
+    <comment>Наименование котла</comment>
+  </data>
+  <data name="RemoveUserPageCanNotRemoveFromAllPotsMess" xml:space="preserve">
+    <value>Participant can not be removed from all pots. he paid in the following pots:</value>
+    <comment>Нельзя удалить участника из всех котлов. Он платил за следующие расходы:</comment>
+  </data>
+  <data name="RemoveUserPageCanNotRemoveFromApportionsMess" xml:space="preserve">
+    <value>Participant can not be deleted. He paid in the following apportionments:</value>
+    <comment>Нельзя удалить участника . Он платил в следующих проектах:</comment>
+  </data>
+  <data name="RemoveUserPageCanNotRemoveMess" xml:space="preserve">
+    <value>Participant can not be removed. he paid for the following expenses:</value>
+    <comment>Участника нельзя удалить. Он платил за следующие расходы.</comment>
+  </data>
+  <data name="RemoveUserPageMessTitle" xml:space="preserve">
+    <value>Participant can not be removed</value>
+    <comment>Нельзя удалить участника.</comment>
+  </data>
+  <data name="CalcApportionPageSync" xml:space="preserve">
+    <value>Sync journey</value>
+    <comment>Синхронизовать проект</comment>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load</value>
+    <comment>Загрузить</comment>
+  </data>
+  <data name="StartMenuItemSyncWithAzure" xml:space="preserve">
+    <value>Load from cloud</value>
+    <comment>Загрузка из облака</comment>
+  </data>
+  <data name="SyncApportionmentPageSyncFailedMessage" xml:space="preserve">
+    <value>Loading of the journey was failed.Check the apportionment id and try again.</value>
+    <comment>Сообщение при неудачной загрузке проекта.</comment>
+  </data>
+  <data name="SyncApportionmentPageSyncFailedMessageTitle" xml:space="preserve">
+    <value>Loading of the journey was failed.</value>
+    <comment>Заголовок сообщения о неудачной загрузке.</comment>
+  </data>
+  <data name="CalcApportionPageContinueJourney" xml:space="preserve">
+    <value>Continue  the journey</value>
+    <comment>Продолжить путешествие</comment>
+  </data>
+  <data name="CalcApportionPageContinueJourneyMessage" xml:space="preserve">
+    <value>Journey is resumed</value>
+    <comment>Сообщение при открытии путешествия</comment>
+  </data>
+  <data name="CalcApportionPageEndJourney" xml:space="preserve">
+    <value>End the journey</value>
+    <comment>Закончить путешествие</comment>
+  </data>
+  <data name="CalcApportionPageEndJourneyMessage" xml:space="preserve">
+    <value>Journey is over</value>
+    <comment>Сообщение при закрытии путешествия</comment>
+  </data>
+  <data name="CalcApportionPageGetAppId" xml:space="preserve">
+    <value>Copy journey id to clipboard</value>
+    <comment>Скопировать в буфер id путешествия.</comment>
+  </data>
+  <data name="CalcApportionPageJGetAppIdMessage" xml:space="preserve">
+    <value>Id was copied to the clipboard</value>
+    <comment>Id было скопировано.</comment>
+  </data>
+  <data name="CalcApportionPageJourneyIsSyncMessage" xml:space="preserve">
+    <value>Journey data was sent to the cloud. Id was copied to the clipboard</value>
+    <comment>Данные о путешествии отправлены в облако.</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>Очистить</comment>
+  </data>
+  <data name="EditPotItemPageItemCreateNewPot" xml:space="preserve">
+    <value>+ Create new pot</value>
+    <comment>Создать новый котел.</comment>
+  </data>
+  <data name="EditPotItemPageItemNamePlaceHolder" xml:space="preserve">
+    <value>Enter the name of the expense</value>
+    <comment>Введите наименование нового расхода</comment>
+  </data>
+  <data name="EditPotItemPagePayersButton" xml:space="preserve">
+    <value>Payers:</value>
+    <comment>Плательщики</comment>
+  </data>
+  <data name="EditPotItemPageSetPotButton" xml:space="preserve">
+    <value>Choose the pot</value>
+    <comment>Выберите котел</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Сохранить</comment>
+  </data>
+  <data name="EditPotItemPageMessageAlertNameEmpty" xml:space="preserve">
+    <value>Enter the name of the expense</value>
+    <comment>Введите наименование расхода</comment>
+  </data>
+  <data name="EditPotItemPageMessageAlertPotEmpty" xml:space="preserve">
+    <value>Select the pot!</value>
+    <comment>Выберите котел</comment>
+  </data>
+  <data name="EditPotItemPagepickerPotChoiceLabel" xml:space="preserve">
+    <value>The name of the pot</value>
+    <comment>Наименование котла</comment>
+  </data>
+  <data name="EditPotItemPagePotItemNameLabel" xml:space="preserve">
+    <value>The name of the expense</value>
+    <comment>Наименование расхода</comment>
+  </data>
+  <data name="EditPotItemPageTitleAlertNameEmpty" xml:space="preserve">
+    <value>Name of expense</value>
+    <comment>Наименование расхода</comment>
+  </data>
+  <data name="EditPotItemPageTitleAlertPotEmpty" xml:space="preserve">
+    <value>Pot is not selected</value>
+    <comment>Котел не выбран</comment>
+  </data>
+  <data name="AddNewParticipant" xml:space="preserve">
+    <value>+ Create new participant</value>
+    <comment>Добавить участника</comment>
+  </data>
+  <data name="ParticipiantFromAnotherProj" xml:space="preserve">
+    <value>Take from another journey</value>
+    <comment>Выбрать участника из другого путешествия</comment>
+  </data>
+  <data name="DebtEditPageMessgeAlertSumZero" xml:space="preserve">
+    <value>Enter a nonzero value!</value>
+    <comment>Введите ненулевое значение</comment>
+  </data>
+  <data name="DebtEditPageTitleAlertSumZero" xml:space="preserve">
+    <value>The value should not be zero</value>
+    <comment>Значение не должно быть равно нулю</comment>
+  </data>
+  <data name="PotUserPageCreateUserWithoutPot" xml:space="preserve">
+    <value>Without pot</value>
+    <comment>Без указания котла</comment>
+  </data>
+  <data name="CalcApportionPageAdd" xml:space="preserve">
+    <value>Add</value>
+    <comment>Добавить</comment>
+  </data>
+  <data name="CalcApportionPageUsers" xml:space="preserve">
+    <value>Participants</value>
+    <comment>Участники</comment>
+  </data>
+  <data name="AlertMessNoOtherUsers" xml:space="preserve">
+    <value>Other users was not found</value>
+    <comment>Другие пользователи не были найдены.</comment>
+  </data>
+  <data name="AlertTitleNoOtherUsers" xml:space="preserve">
+    <value>Trying find other participants</value>
+    <comment>Попытка найти других пользователей</comment>
+  </data>
+  <data name="CalcApportionPageInfoByPot" xml:space="preserve">
+    <value>Detailes</value>
+    <comment>Информация о котле</comment>
+  </data>
+  <data name="CaptionJourney" xml:space="preserve">
+    <value>Journey</value>
+    <comment>Название путешествия</comment>
+  </data>
+  <data name="CaptionParticipantName" xml:space="preserve">
+    <value>Participant name</value>
+    <comment>Имя участника</comment>
+  </data>
+  <data name="CaptionPotName" xml:space="preserve">
+    <value>Pot name</value>
+    <comment>Название котла</comment>
+  </data>
+  <data name="CaptionShare" xml:space="preserve">
+    <value>Share</value>
+    <comment>Название путешествия</comment>
+  </data>
+  <data name="PotPageMessageAlertNameEmpty" xml:space="preserve">
+    <value>The name is empty.Please, enter the name!</value>
+    <comment>Наименование котла не заполнено! Пожалуйста заполните наименование котла!</comment>
+  </data>
+  <data name="PotPageMessageAlertNeedPotUsers" xml:space="preserve">
+    <value>No participant in the pot! Please, add participants!</value>
+    <comment>Не указаны участники котла! Пожалуйста добавте в котел участников!</comment>
+  </data>
+  <data name="PotPageTitleAlertNameEmpty" xml:space="preserve">
+    <value>The name is empty</value>
+    <comment>Наименование котла пустое</comment>
+  </data>
+  <data name="PotPageTitleAlertNeedPotUsers" xml:space="preserve">
+    <value>No participants in the pot!</value>
+    <comment>Не указаны участники котла!</comment>
+  </data>
+  <data name="NettingScheme" xml:space="preserve">
+    <value>Схема взаиморасчетов</value>
+    <comment>Схема взаиморасчетов</comment>
+  </data>
+  <data name="Participant" xml:space="preserve">
+    <value>Participant</value>
+    <comment>Участник</comment>
+  </data>
+  <data name="Participants" xml:space="preserve">
+    <value>Participants</value>
+    <comment>Участники</comment>
+  </data>
+  <data name="Pot" xml:space="preserve">
+    <value>Pot</value>
+    <comment>Котел</comment>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Sum</value>
+    <comment>Сумма</comment>
+  </data>
+  <data name="TotalMustPay" xml:space="preserve">
+    <value>Total must pay</value>
+    <comment>Итого должен заплатил</comment>
+  </data>
+  <data name="TotalOverpaid" xml:space="preserve">
+    <value>Total overtpaid</value>
+    <comment>Итого переплатил</comment>
+  </data>
+  <data name="FormatDate" xml:space="preserve">
+    <value>yyyy-MM-dd HH-mm-ss</value>
+    <comment>Формат для конвертации дат.</comment>
+  </data>
+  <data name="CostPageCostName" xml:space="preserve">
+    <value>CostName</value>
+    <comment>Наименование расхода</comment>
+  </data>
+  <data name="DefaultCurrencyCode" xml:space="preserve">
+    <value>RUB</value>
+    <comment>Валюта проекта по умолчанию</comment>
+  </data>
+  <data name="CostPageAddParticipant" xml:space="preserve">
+    <value>Add participant.</value>
+    <comment>Добавить участника.</comment>
+  </data>
+  <data name="CostPageAddPayment" xml:space="preserve">
+    <value>Add payment.</value>
+    <comment>Добавить платеж.</comment>
+  </data>
+  <data name="CostPageCostNameEmptyAlert" xml:space="preserve">
+    <value>Enter the name of the expense!</value>
+    <comment>Введите имя расхода!!</comment>
+  </data>
+  <data name="CostPageCostNameEmptyAlertMessage" xml:space="preserve">
+    <value>The name of the expens can not be emty. Enter the name of the expense!</value>
+    <comment>Введите имя расхода!!</comment>
+  </data>
+  <data name="CostPageCostNamePlaceholder" xml:space="preserve">
+    <value>Enter the name of the expense</value>
+    <comment>Введите имя расхода</comment>
+  </data>
+  <data name="CostPagePayments" xml:space="preserve">
+    <value>Payments</value>
+    <comment>Платежи</comment>
+  </data>
+  <data name="CostPageUnsavedDataAlertMessage" xml:space="preserve">
+    <value>Data has been changed but not saved. Save the changed data?</value>
+    <comment>Данные были изменены и не сохранены.  Сохранить измененные данные?</comment>
+  </data>
+  <data name="CostPageUnsavedDataAlertTitle" xml:space="preserve">
+    <value>Data has been changed!</value>
+    <comment>Данные были изменены и не сохранены.  Сохранить измененные данные?</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+    <comment>Да</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Да</comment>
+  </data>
+  <data name="CostPageAddNewCurrencies" xml:space="preserve">
+    <value>+ Add currency.</value>
+    <comment>Добавить валюту.</comment>
+  </data>
+  <data name="TripResultPageNoShare" xml:space="preserve">
+    <value>This costs have no participants!</value>
+    <comment>Для данных расходов не указаны участники!</comment>
+  </data>
+  <data name="TripResultPageShareFile" xml:space="preserve">
+    <value>Send</value>
+    <comment>Отправить</comment>
+  </data>
+  <data name="CostsPageCurrencies" xml:space="preserve">
+    <value>Exchange rates</value>
+    <comment>Курсы валют</comment>
+  </data>
+  <data name="TripCurrenciesPageBaseCurrency" xml:space="preserve">
+    <value>Base currency</value>
+    <comment>Базовая валюта</comment>
+  </data>
+  <data name="AddNewPayer" xml:space="preserve">
+    <value>+Add new payer</value>
+    <comment>Add new payer</comment>
+  </data>
+  <data name="CostsPageAddAllRatesMessage" xml:space="preserve">
+    <value>Not all exchange rates are listed! Please, specify the rates!</value>
+    <comment>Not all exchange rates are listed! Please, specify the rates!</comment>
+  </data>
+  <data name="CostsPageCopyCost" xml:space="preserve">
+    <value>Copy the cost</value>
+    <comment>Copy the cost</comment>
+  </data>
+  <data name="CostsPageDeleteCost" xml:space="preserve">
+    <value>Delete the cost</value>
+    <comment>Delete the cost</comment>
+  </data>
+  <data name="CostsPageDeleteCostMessage" xml:space="preserve">
+    <value>Are you shure you want to delete the cost?</value>
+    <comment>Are you shure you want to delete the cost?</comment>
+  </data>
+  <data name="CostsPageDeleteCostValue" xml:space="preserve">
+    <value>Are you shure you want to delete cost?</value>
+    <comment>Are you shure you want to delete cost?</comment>
+  </data>
+  <data name="CostsPageDeleteUserShareMessage" xml:space="preserve">
+    <value>Are you shure you want to delete share?</value>
+    <comment>Are you shure you want to delete share?</comment>
+  </data>
+  <data name="CostsPageRenameTrip" xml:space="preserve">
+    <value>Rename the trip</value>
+    <comment>Rename the trip</comment>
+  </data>
+  <data name="TripCurrenciesPageCanNotDeleteCurrencyFromTrip" xml:space="preserve">
+    <value>Cannot delete the currency. Costs with the currency exists.</value>
+    <comment>Cannot delete currency. Costs with the currency exists.</comment>
+  </data>
+  <data name="TripCurrenciesPageDeleteCurrencyFromTrip" xml:space="preserve">
+    <value>Are you sure you want to delete the currency?</value>
+    <comment>Are you sure you want to delete the currency?</comment>
+  </data>
+  <data name="TripCurrenciesPageExchangeRates" xml:space="preserve">
+    <value>Exchange rate to the base currency</value>
+    <comment>Exchange Rates</comment>
+  </data>
+  <data name="TripCurrenciesPageSetBaseCurrencyMessage" xml:space="preserve">
+    <value>Please, set the base currency!</value>
+    <comment>Please, set the base currency!</comment>
+  </data>
+  <data name="TripListPageDeleteTrip" xml:space="preserve">
+    <value>Delete the trip</value>
+    <comment>Delete the trip</comment>
+  </data>
+  <data name="TripListPageDeleteTripMessage" xml:space="preserve">
+    <value>Are you sure you want to delete the trip?</value>
+    <comment>Are you sure you want to delete the trip?</comment>
+  </data>
+  <data name="TripListPageRenameTrip" xml:space="preserve">
+    <value>Rename the trip</value>
+    <comment>Rename the trip</comment>
+  </data>
+  <data name="TripNamePageDataEndLabel" xml:space="preserve">
+    <value>The date of the end</value>
+    <comment>The date of the end</comment>
+  </data>
+  <data name="TripNamePageDataStartLabel" xml:space="preserve">
+    <value>The date of the start</value>
+    <comment>The date of the start</comment>
+  </data>
+  <data name="TripNamePageTripNamePlaceholder" xml:space="preserve">
+    <value>The name of the trip</value>
+    <comment>The name of the trip</comment>
+  </data>
+</root>

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:Apportionment2.Extensions;assembly=Apportionment2"
+             xmlns:apportionment="clr-namespace:Apportionment2;assembly=Apportionment2"
+             x:Class="Apportionment2.Pages.CostPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="#708090" />
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#708090" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="ButtonEmpty" TargetType="Button">
+                <Setter Property="TextColor" Value="#F5F5F5" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#F5F5F5" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="#708090Layout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#708090" />
+            </Style>
+            <Style x:Key="StackLayout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+            </Style>
+            <Style x:Key="FrameSettings" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="OutlineColor" Value="#708090" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Menu" Clicked="MenuItem_OnClicked"  Order="Primary" Priority="0"/>
+    </ContentPage.ToolbarItems>
+   
+    <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
+        <StackLayout Style="{StaticResource StackLayout}" Padding="0" VerticalOptions="Start" >
+
+            <Entry x:Name="CostName" FontSize="20"
+                   BackgroundColor="#F5F5F5"
+                   TextColor="#474b4f"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"
+                   Margin="0"
+                   Completed="CostNameEntry_OnCompleted"
+                   Unfocused="CostNameEntry_OnUnfocused"
+                   ClearButtonVisibility="WhileEditing"
+                   >
+            </Entry>
+            <DatePicker x:Name ="CostDate"
+                        FontSize="15"
+                        Format="D"
+                        DateSelected ="OnDateSelected" >
+            </DatePicker>
+        </StackLayout>
+
+        <ScrollView x:Name="ScrollPayments" 
+                    BackgroundColor="#F5F5F5" 
+                    VerticalOptions="StartAndExpand">
+                <StackLayout x:Name="StackLayoutScroll"
+                             BackgroundColor="#F5F5F5"   
+                             Padding="0"
+                             HorizontalOptions="FillAndExpand"/>
+        </ScrollView>
+
+        <StackLayout BackgroundColor="#F5F5F5" 
+                     Orientation="Horizontal" 
+                     VerticalOptions="EndAndExpand" 
+                     HeightRequest="50"
+                     Padding="5">
+
+            <ImageButton Source="Cancel.png"
+                         BackgroundColor="Transparent"  
+                         HorizontalOptions="CenterAndExpand"
+                         WidthRequest="100"
+                         VerticalOptions="CenterAndExpand"
+                         Clicked="CancelButton_OnClicked" />
+
+            <ImageButton Source="Save.png"
+                         HorizontalOptions="CenterAndExpand"
+                         BackgroundColor="Transparent"     
+                         VerticalOptions="CenterAndExpand"
+                         WidthRequest="100"
+                         Clicked="SaveButton_OnClicked" />
+            
+            <ImageButton Source="Add.png"
+                         HorizontalOptions="CenterAndExpand"
+                         BackgroundColor="Transparent"  
+                         WidthRequest="100"
+                         VerticalOptions="CenterAndExpand"
+                         Clicked="AddButton_OnClicked" />
+            </StackLayout>
+    </StackLayout>
+</ContentPage>

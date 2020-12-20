@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:Apportionment2.Extensions;assembly=Apportionment2"
+             x:Class="Apportionment2.Pages.TripsListPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="#708090" />
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#708090" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="#708090Layout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#708090" />
+            </Style>
+            <Style x:Key="StackLayout" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+            </Style>
+            <Style x:Key="FrameSettings" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#F5F5F5" />
+                <Setter Property="OutlineColor" Value="#708090" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout BackgroundColor="#F5F5F5">
+        <extensions:ListViewMod x:Name="TripsList"
+                                ItemsSource="{Binding}"
+                                ItemTapped="TripsList_OnItemTapped"
+                                LongClicked ="TripsList_OnLongClicked"
+                                AbsoluteLayout.LayoutFlags="All"  
+                                AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                SeparatorVisibility="None"
+                                HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout>
+                                <StackLayout Style="{StaticResource StackLayout}" HorizontalOptions="FillAndExpand" Orientation="Horizontal" BackgroundColor="{Binding Color}">
+                                    <Label Text="{Binding Name}" FontSize="15" TextColor="Black" WidthRequest="150"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start" Padding="10,0,0,0"/>
+                                    <Label Text="" FontSize="15" TextColor="Black" WidthRequest="1" HeightRequest="40"  HorizontalOptions="StartAndExpand" VerticalTextAlignment="Start"/>
+                                    <Label Text="{Binding DateStart}" FontSize="15" TextColor="Black"   HorizontalOptions="End"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </extensions:ListViewMod>
+
+        <ImageButton Source="Add.png"
+                     BackgroundColor="Transparent"
+                     HorizontalOptions="End"
+                     WidthRequest="100"
+                     VerticalOptions="CenterAndExpand"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"  
+                     AbsoluteLayout.LayoutBounds="0.88,0.99,50,50" 
+                     Clicked="ImageButton_OnClicked" />
+
+    </AbsoluteLayout>
+
+</ContentPage>
