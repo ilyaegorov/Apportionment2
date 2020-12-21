@@ -117,6 +117,7 @@ namespace Apportionment2.Pages
                 , Resource.CalcApportionPageAdd
                 , Resource.CostsPageCurrencies
                 , Resource.CostsPageRenameTrip
+                , Resource.CostsPageDeleteUser
                 //, Resource.CalcApportionPageAddPot
                 //, Resource.CalcApportionPageEditPot
                 //, Resource.CalcApportionPageAddUser
@@ -130,6 +131,11 @@ namespace Apportionment2.Pages
             if (action == Resource.CalcApportionPageAdd)
             {
                 //ButtonAdd_OnClicked(sender, e);
+            }
+            else if (action == Resource.CostsPageDeleteUser)
+            {
+                UsersPage page = new UsersPage(_trip.id);
+                await Navigation.PushAsync(page);
             }
             else if (action == Resource.CalcApportionPageCalc)
             {

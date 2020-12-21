@@ -1677,5 +1677,37 @@ namespace Apportionment2 {
                 return ResourceManager.GetString("TripListPageDeleteTripMessage", resourceCulture);
             }
         }
+
+        public static string UsersPageTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("UsersPageTitle", resourceCulture);
+            }
+        }
+
+        public static string UsersPageUserDeleteMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("UsersPageUserDeleteMessage", resourceCulture);
+            }
+        }
+
+        public static string UsersPageUserCanNotBeDeleted
+        {
+            get
+            {
+                return ResourceManager.GetString("UsersPageUserCanNotBeDeleted", resourceCulture);
+            }
+        }
+
+        public static string CostsPageDeleteUser
+        {
+            get
+            {
+                return ResourceManager.GetString("CostsPageDeleteUser", resourceCulture);
+            }
+        }
     }
 }

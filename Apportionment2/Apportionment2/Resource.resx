@@ -849,4 +849,20 @@
     <value>Export db</value>
     <comment>Экспортировать базу данных</comment>
   </data>
+  <data name="CostsPageDeleteUser" xml:space="preserve">
+    <value>Delete users</value>
+    <comment>CostsPageDeleteUser</comment>
+  </data>
+  <data name="UsersPageTitle" xml:space="preserve">
+    <value>Users</value>
+    <comment>Users</comment>
+  </data>
+  <data name="UsersPageUserCanNotBeDeleted" xml:space="preserve">
+    <value>User can not be deleted. The costs or shares exist.</value>
+    <comment>Участник не может быть удален. Есть расходы.</comment>
+  </data>
+  <data name="UsersPageUserDeleteMessage" xml:space="preserve">
+    <value>Delete participant</value>
+    <comment>Delete participant</comment>
+  </data>
 </root>

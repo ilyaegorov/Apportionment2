@@ -696,10 +696,5 @@ namespace Apportionment2.Pages
         private Costs _cost;
         private bool _newItem = false;
         private bool _hasUnsavedData = false;
-
-        private void CostDate_DateSelected(object sender, DateChangedEventArgs e)
-        {
-
-        }
     }
 }

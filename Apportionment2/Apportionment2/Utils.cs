@@ -147,5 +147,20 @@ namespace Apportionment2
 
             return date.ToString("dd MMMM yyyy");
         }
+
+        public static double SumByUser(Users u, string trip_Id)
+        {
+            double sum = 0;
+            var sql = 
+                "Select  * from CostValues cv " + " where cv.TripId = '" + trip_Id + "'" + "  and  cv.UserId = '" + u.id + "'";
+
+            var cmd = App.Database.CreateCommand(sql);
+            var potItemValuesByUser = cmd.ExecuteQuery<CostValues>();
+
+            if (potItemValuesByUser.Any())
+                sum = potItemValuesByUser.Sum(piv => piv.Value);
+
+            return sum;
+        }
     }
 }

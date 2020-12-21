@@ -35,7 +35,6 @@ namespace Apportionment2.Sqlite
             return newUserCostShare;
         }
 
-
         public static CostValues GetNewUserCostValue(string userId, string costId, string tripId, string currencyId)
         {
             CostValues newCostValue = new CostValues
@@ -157,6 +156,5 @@ namespace Apportionment2.Sqlite
 
             return newTripCurrency;
         }
-
     }
 }

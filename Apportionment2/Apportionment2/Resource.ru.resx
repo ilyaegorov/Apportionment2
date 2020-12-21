@@ -837,4 +837,20 @@
     <value>Экспортировать базу данных</value>
     <comment>Экспортировать базу данных</comment>
   </data>
+  <data name="CostsPageDeleteUser" xml:space="preserve">
+    <value>Удаление участников</value>
+    <comment>CostsPageDeleteUser</comment>
+  </data>
+  <data name="UsersPageTitle" xml:space="preserve">
+    <value>Участники</value>
+    <comment>Users</comment>
+  </data>
+  <data name="UsersPageUserCanNotBeDeleted" xml:space="preserve">
+    <value>Участник не может быть удален. Есть расходы или участвует в распределении.</value>
+    <comment>Участник не может быть удален. Есть расходы.</comment>
+  </data>
+  <data name="UsersPageUserDeleteMessage" xml:space="preserve">
+    <value>Удалить участника?</value>
+    <comment>Delete participant</comment>
+  </data>
 </root>
