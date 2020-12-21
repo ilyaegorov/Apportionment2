@@ -22,7 +22,8 @@ namespace Apportionment2.Pages
             string[] actionMenuItem = new[]
             {
                 Resource.TripResultPageSaveInFileButton,
-                Resource.TripResultPageShareFile
+                Resource.TripResultPageShareFile,
+                Resource.TripResultPageSaveDb
             };
 
 
@@ -34,20 +35,12 @@ namespace Apportionment2.Pages
 
 
             if (action == Resource.TripResultPageSaveInFileButton)
-            {
                 SaveInFileButton_OnClicked(null, null);
-
-            }
-            if (action == Resource.TripResultPageShareFile)
-            {
+            else if (action == Resource.TripResultPageShareFile)
                 ShareFileButton_OnClicked(null, null);
-
-            }
-            else if (action == Resource.CalcApportionPageDebt)
-            {
-
-
-            }
+            //else if (action == Resource.CalcApportionPageDebt)
+            else if (action == Resource.TripResultPageSaveDb)
+                await DependencyService.Get<IHtmlReport>().ShareDb();
         }
 
         protected override void OnAppearing()
@@ -546,7 +539,9 @@ namespace Apportionment2.Pages
             StringBuilder costValuesStringBuilder = new StringBuilder();
 
             var costValues = App.Database.Table<CostValues>()
-                .Where(n => n.TripId == _trip.id && (n.CostId == costId || costId == string.Empty) && (n.UserId == userId || userId == string.Empty))
+                .Where(n => n.TripId == _trip.id 
+                && (n.CostId == costId || costId == string.Empty) 
+                && (n.UserId == userId || userId == string.Empty))
                 .OrderBy(n => n.CurrencyId)
                 .Select(g => new { g.CurrencyId, Summa = g.Value })
                 .GroupBy(d => d.CurrencyId)
@@ -558,8 +553,10 @@ namespace Apportionment2.Pages
             {
                 var currency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.id == value.CurrencyId);
 
-                double currencyRate = App.Database.Table<CurrencyExchangeRate>().Any(n => n.CurrencyIdFrom == value.CurrencyId && n.TripId == _trip.id)
-                    ? App.Database.Table<CurrencyExchangeRate>().LastOrDefault(n => n.CurrencyIdFrom == value.CurrencyId && n.TripId == _trip.id).Rate
+                double currencyRate = App.Database.Table<CurrencyExchangeRate>().
+                    Any(n => n.CurrencyIdFrom == value.CurrencyId && n.TripId == _trip.id)
+                    ? App.Database.Table<CurrencyExchangeRate>().
+                    LastOrDefault(n => n.CurrencyIdFrom == value.CurrencyId && n.TripId == _trip.id).Rate
                     : 1;
 
                 totalSumInBaseCurrency += currencyRate * value.Summa;

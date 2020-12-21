@@ -11,6 +11,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Environment = System.Environment;
 using File = System.IO.File;
+using Java.Nio.Channels;
 
 [assembly: Dependency(typeof(HtmlReportWorkerDroid))]
 namespace Apportionment2.Droid
@@ -104,6 +105,28 @@ namespace Apportionment2.Droid
             {
                 Title = filename,
                 File = new ShareFile(path)
+            });
+        }
+
+        public async Task ShareDb()
+        {
+            string fileName = "Trips.db";
+            string dbPath = GetPath(fileName);
+            var bytes = await Task.FromResult(System.IO.File.ReadAllBytes(GetPath(fileName)));
+            //string newFileName = "Trips.html";
+
+            int.TryParse(Android.OS.Build.VERSION.Sdk, out int apiVersion);
+            CheckAppPermissions(apiVersion);
+            string newfileName = "Trips.rar";
+            var newPath = GetFullFilePath(newfileName);
+
+            System.IO.File.WriteAllBytes(newPath, bytes);
+            //string path = DependencyService.Get<ISqLite>().GetDatabasePath(App.DatabaseName);
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = fileName,
+                File = new ShareFile(newPath)
             });
         }
 

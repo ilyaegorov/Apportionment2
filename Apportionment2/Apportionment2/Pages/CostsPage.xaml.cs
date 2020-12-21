@@ -26,7 +26,7 @@ namespace Apportionment2.Pages
 
 	    protected override void OnAppearing()
 	    {
-	        base.OnAppearing();
+	        //base.OnAppearing();
 
 	        if (string.IsNullOrEmpty(_trip.Name))
 	        {
@@ -38,6 +38,7 @@ namespace Apportionment2.Pages
 	        Title = _trip.Name;
 
             RefreshPage();
+            base.OnAppearing();
         }
 
         private void RefreshPage()
@@ -86,8 +87,9 @@ namespace Apportionment2.Pages
 
 
 	            CostPage pip = new CostPage(itemViewModel.Cost);
-	            await Navigation.PushModalAsync(pip, false);
+	            await Navigation.PushAsync(pip, false);
 	        }
+
 	        //else if (itemViewModel.AddNewItem)
 	        //{
 	        //    ButtonAddPot_OnClicked(null, null);
@@ -199,8 +201,8 @@ namespace Apportionment2.Pages
 
         private async void AddButton_OnClicked(object sender, EventArgs e)
 	    {
-	        CostPage pip = new CostPage(_trip.id);
-	        await Navigation.PushAsync(pip);
+	        CostPage costPage = new CostPage(_trip.id);
+	        await Navigation.PushAsync(costPage);
         }
 
         private async void CostListItem_OnLongClicked(object sender, SelectedItemChangedEventArgs e)

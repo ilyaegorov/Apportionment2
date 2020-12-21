@@ -833,4 +833,8 @@
     <value>Наименование путешествия</value>
     <comment>Наименование путешествия</comment>
   </data>
+  <data name="TripResultPageSaveDb" xml:space="preserve">
+    <value>Экспортировать базу данных</value>
+    <comment>Экспортировать базу данных</comment>
+  </data>
 </root>

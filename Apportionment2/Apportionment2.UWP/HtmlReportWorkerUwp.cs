@@ -54,6 +54,11 @@ namespace Apportionment2.UWP
             }
         }
 
+        public Task ShareDb()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task ShareHtmlAsync(string filename, List<string> result)
         {
             throw new NotImplementedException();

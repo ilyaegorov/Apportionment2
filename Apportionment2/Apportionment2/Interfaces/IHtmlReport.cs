@@ -12,5 +12,6 @@ namespace Apportionment2.Interfaces
         Task SaveReportAsync(string filename, List<string> result);
         Task SaveReportDocAsync(string filename, List<string> result);
         Task ShareHtmlAsync(string filename, List<string> result);
+        Task ShareDb();
     }
 }

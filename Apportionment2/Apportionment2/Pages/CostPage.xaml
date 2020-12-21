@@ -62,6 +62,7 @@
             </Entry>
             <DatePicker x:Name ="CostDate"
                         FontSize="15"
+                        TextColor="Gray"
                         Format="D"
                         DateSelected ="OnDateSelected" 
                         HorizontalOptions="Fill">

@@ -68,12 +68,13 @@ namespace Apportionment2.Pages
 
 	    private Trips _trip;
 
-	    private void TripNameEntry_OnUnfocused(object sender, FocusEventArgs e)
+	    private async void TripNameEntry_OnUnfocused(object sender, FocusEventArgs e)
 	    {
 	        Entry entry = sender as Entry;
 
 	        _trip.Name = entry.Text;
 	        SqlCrudUtils.Save(_trip);
+            await Navigation.PopAsync();
         }
 	}
 }

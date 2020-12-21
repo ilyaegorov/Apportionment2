@@ -50,6 +50,11 @@ namespace Apportionment2.iOS
             File.WriteAllLines(path, result);
         }
 
+        public Task ShareDb()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task ShareHtmlAsync(string filename, List<string> result)
         {
             throw new NotImplementedException();

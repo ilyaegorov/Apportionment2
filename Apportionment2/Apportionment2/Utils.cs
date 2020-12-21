@@ -120,7 +120,8 @@ namespace Apportionment2
             TripCurrencies baseCurrencies = GetBaseTripCurrencies(tripId);
 
             var sql = "Select distinct * from TripCurrencies tv " +
-                      "left join CurrencyExchangeRate cer on cer.CurrencyIdFrom = tv.CurrencyId and cer.CurrencyIdTo = '" + baseCurrencies.CurrencyId + "' " +
+                      "left join CurrencyExchangeRate cer on cer.CurrencyIdFrom = tv.CurrencyId and cer.CurrencyIdTo = '" + 
+                      baseCurrencies.CurrencyId + "' " +
                       "where tv.TripId = '" + tripId + "' and tv.CurrencyId <> '" + baseCurrencies.CurrencyId+ "' "
             + "and (cer.id is null or cer.rate = 0)";
             var cmd = App.Database.CreateCommand(sql);

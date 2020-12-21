@@ -279,7 +279,9 @@ namespace Apportionment2 {
                 return ResourceManager.GetString("CalcApportionPageDebt", resourceCulture);
             }
         }
-        
+
+       
+
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
@@ -1580,7 +1582,14 @@ namespace Apportionment2 {
             }
         }
 
-      
+        public static string TripResultPageSaveDb
+        {
+            get
+            {
+                return ResourceManager.GetString("TripResultPageSaveDb", resourceCulture);
+            }
+        }
+
         public static string TripCurrenciesPageBaseCurrency
         {
             get

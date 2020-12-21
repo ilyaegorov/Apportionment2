@@ -33,6 +33,7 @@ namespace Apportionment2.Pages
 
         protected override void OnAppearing()
         {
+            Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
             SetButtonName();
             CostName.Text = _cost.CostName;
             CostDate.Date = Utils.DateFromString(_cost.DateCreate);
@@ -432,8 +433,8 @@ namespace Apportionment2.Pages
                 SaveCostValues();
                 SaveUserCostShares();
                 SaveUsers();
-
-                await Navigation.PopModalAsync(false);
+                // Exception is thrown if PopModalAsync is used.
+                await Navigation.PopAsync(true);
             }
         }
 
@@ -499,16 +500,20 @@ namespace Apportionment2.Pages
         {
             if (_hasUnsavedData)
             {
-                var result = await DisplayAlert(Resource.CostPageUnsavedDataAlertTitle,Resource.CostPageUnsavedDataAlertMessage, 
+                var result = await DisplayAlert(Resource.CostPageUnsavedDataAlertTitle, Resource.CostPageUnsavedDataAlertMessage,
                     Resource.Yes, Resource.No);
 
                 if (result)
                     SaveButton_OnClicked(null, null);
                 else
-                    await Navigation.PopModalAsync(false);
+                    // Exception is thrown if PopModalAsync is used.
+                    await Navigation.PopAsync();
             }
             else
-               await Navigation.PopModalAsync(false);
+            {
+                // Exception is thrown if PopModalAsync is used.
+                await Navigation.PopAsync();
+            }
         }
 
         private void CostNameEntry_OnCompleted(object sender, EventArgs e)
@@ -614,7 +619,7 @@ namespace Apportionment2.Pages
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    if (await DisplayAlert(null, Resource.CostsPageDeleteUserShareMessage, Resource.Yes, Resource.No))
+                    if (await DisplayAlert(null, Resource.CostsPageDeleteCostValue, Resource.Yes, Resource.No))
                     {
                         _costValues.Remove(cv);
                         SqlCrudUtils.Delete(cv);
@@ -625,7 +630,7 @@ namespace Apportionment2.Pages
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    if (await DisplayAlert(null, Resource.CostsPageDeleteCostValue, Resource.Yes, Resource.No))
+                    if (await DisplayAlert(null, Resource.CostsPageDeleteUserShareMessage, Resource.Yes, Resource.No))
                     {
                         UserCostShares ucs = bRemove.BindingContext as UserCostShares;
 

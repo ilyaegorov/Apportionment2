@@ -69,7 +69,7 @@ namespace Apportionment2.Sqlite
 
         public static void Save(object obj)
         {
-            if (Exist(obj))
+            if (Exists(obj))
                 App.Database.Update(obj);
             else
                 App.Database.Insert(obj);
@@ -77,11 +77,11 @@ namespace Apportionment2.Sqlite
 
         public static void Delete(object obj)
         {
-            if (Exist(obj))
+            if (Exists(obj))
                 App.Database.Delete(obj);
         }
 
-        public static bool Exist(object obj)
+        public static bool Exists(object obj)
         {
             Type objType = Orm.GetType(obj);
             int rowsAffected = 0;
