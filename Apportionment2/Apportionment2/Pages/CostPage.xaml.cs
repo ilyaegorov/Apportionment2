@@ -5,6 +5,7 @@ using System.Globalization;
 using Apportionment2.Sqlite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Apportionment2.CustomElements;
 
 namespace Apportionment2.Pages
 {
@@ -77,14 +78,14 @@ namespace Apportionment2.Pages
                 //Elements of the paymentItemLayout.
                 Button bRemove = GetRemoveButton(costValue);
                 Users user = _users.FirstOrDefault(n => n.id == costValue.UserId);
-                Entry payerNameEntry = GetNameEntry(user, 140, 15, Color.Black);
+                CustomEntry payerNameEntry = GetNameEntry(user, 140, 15, Color.Black);
                 nameEntries.Add(payerNameEntry);
                 payerNameEntry.BackgroundColor = backGroundColor;
 
                 Button currencyButton = GetCurrencyButton(costValue);
                 currencyButton.BackgroundColor = backGroundColor;
 
-                Entry sum = Utils.GetDoubleEntry(costValue, 100, 15, Color.Green);
+                CustomEntry sum = Utils.GetDoubleEntry(costValue, 100, 15, Color.Green);
                 sum.BackgroundColor = backGroundColor;
                 sum.TextChanged += EntryValue_Replaced;
                 sum.Focused += EntryValue_Focused;
@@ -144,11 +145,11 @@ namespace Apportionment2.Pages
                 //Elements of the paymentItemLayout.
                 Button bRemove = GetRemoveButton(userShare);
 
-                Entry participantNameEntry = GetNameEntry(user, 140, 15, Color.Black);
+                CustomEntry participantNameEntry = GetNameEntry(user, 140, 15, Color.Black);
                 participantNameEntry.BackgroundColor = backGroundColor;
                 nameEntries.Add(participantNameEntry);
 
-                Entry share = Utils.GetDoubleEntry(userShare, 100, 15, Color.Green);
+                CustomEntry share = Utils.GetDoubleEntry(userShare, 100, 15, Color.Green);
                 share.BackgroundColor = backGroundColor;
                 share.TextChanged += EntryValue_Replaced;
                 share.Focused += EntryValue_Focused;
@@ -238,9 +239,9 @@ namespace Apportionment2.Pages
             return line;
         }
 
-        private Entry GetNameEntry(object bindingContext, double width, double fontSize, Color color)
+        private CustomEntry GetNameEntry(object bindingContext, double width, double fontSize, Color color)
         {
-            Entry entry = Utils.GetEntry(bindingContext, width, fontSize, color);
+            CustomEntry entry = Utils.GetEntry(bindingContext, width, fontSize, color);
             entry.HorizontalTextAlignment = TextAlignment.Start;
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
             return entry;
@@ -479,7 +480,7 @@ namespace Apportionment2.Pages
                 {
                     if (await DisplayAlert("Exit page?", "Are you sure you want to exit this page? You will not be able to continue it.", "Yes", "No"))
                     {
-                        await Navigation.PopModalAsync(false);
+                        await Navigation.PopAsync(false);
                     }
                 });
 
@@ -489,7 +490,7 @@ namespace Apportionment2.Pages
             else
             {
                 //base.OnBackButtonPressed();
-                Device.BeginInvokeOnMainThread(async () => { await Navigation.PopModalAsync(false); });
+                Device.BeginInvokeOnMainThread(async () => { await Navigation.PopAsync(false); });
                  //   Navigation.PopModalAsync(false);
                 //Do not navigate backwards by pressing the button
                 return true;
@@ -689,7 +690,7 @@ namespace Apportionment2.Pages
         private List<CostValues> _costValues = new List<CostValues>();
         private List<UserCostShares> _userCostShares = new List<UserCostShares>();
         private List<Users> _users = new List<Users>();
-        private List<Entry> nameEntries = new List<Entry>();
+        private List<CustomEntry> nameEntries = new List<CustomEntry>();
         private string spaceChar = ((char)32).ToString();
         private string _tripId;
         private Costs _cost;

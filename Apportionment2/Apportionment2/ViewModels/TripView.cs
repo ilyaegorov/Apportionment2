@@ -22,7 +22,7 @@ namespace Apportionment2.ViewModels
 
         public string id => Trip.id;
         public string Name => Trip.Name;
-        public string DateStart => Trip.DateBegin;
+        public string DateStart => Utils.GetPrettyDate(Trip.DateBegin);
 
         public string Color { get; set; }
 

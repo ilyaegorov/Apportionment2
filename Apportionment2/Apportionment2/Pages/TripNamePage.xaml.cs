@@ -73,7 +73,12 @@ namespace Apportionment2.Pages
 	        Entry entry = sender as Entry;
 
 	        _trip.Name = entry.Text;
-	        SqlCrudUtils.Save(_trip);
+            SqlCrudUtils.Save(_trip);
+            CurrencyDictionary defaultCurrency = 
+                App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
+            TripCurrencies tripCurr = SqlCrudUtils.CreateTripCurrencies(_trip.id, _trip.Sync, defaultCurrency.id); ;
+            SqlCrudUtils.SetBaseCurrency(tripCurr);
+
             await Navigation.PopAsync();
         }
 	}

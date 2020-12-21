@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloseAppDroid.cs" />
+    <Compile Include="CustomDatePickerRenderer.cs" />
+    <Compile Include="CustomEntryRenderer.cs" />
     <Compile Include="Extensions\ListViewRendererDriod.cs" />
     <Compile Include="HtmlReportWorkerDroid.cs" />
     <Compile Include="LocalizeDroid.cs" />

@@ -65,11 +65,7 @@ namespace Apportionment2.Pages
                     CostValue.CurrencyId = currency.id;
 
                 if (IsBaseCurrency)
-                {
                     SetBaseCurrency(newCurrency);
-                   // TripCurrenciesPage tcp = new TripCurrenciesPage(Trip);
-                   //await Navigation.PushModalAsync(tcp);
-                }
 
             }
 
@@ -78,46 +74,12 @@ namespace Apportionment2.Pages
 
         private TripCurrencies CreateTripCurrencies(string tripId, string sync, string currencyId)
         {
-            TripCurrencies newTripCurrency = new TripCurrencies
-            {
-                id = Guid.NewGuid().ToString(),
-                TripId = tripId,
-                CurrencyId = currencyId,
-                DateCreate = DateTime.Now.ToString(App.DateFormat),
-                Sync = sync
-            };
-
-            SqlCrudUtils.Save(newTripCurrency);
-
-            return newTripCurrency;
+           return SqlCrudUtils.CreateTripCurrencies( tripId,  sync,  currencyId);
         }
 
         private void SetBaseCurrency(TripCurrencies tripCurr)
         {
-            //ObjectAttrs a = App.Database.Table<ObjectAttrs>()
-            //    .FirstOrDefault(c => c.AttrId == "1");
-
-            var attrs = App.Database.Table<ObjectAttrs>()
-                .Where(c => c.AttrId == "1" && tripCurr.id != c.ObjectId);
-
-            foreach (var a in attrs)
-                SqlCrudUtils.Delete(a);
-
-            ObjectAttrs newAttr = new ObjectAttrs
-            {
-                id = Guid.NewGuid().ToString(),
-                AttrId = "1",
-                AttrValue = "BaseCurrency",
-                ObjectId = tripCurr.id,
-                Sync = tripCurr.Sync
-            };
-
-            SqlCrudUtils.Save(newAttr);
-
-            //var sql = "SELECT tc.* FROM TripCurrencies tc JOIN ObjectAttrs oa on oa.ObjectId = tc.id and oa.AttrId='1' " +
-            //          "where tc.TripId= '" + Trip.id + "' ";
-            //var cmd = App.Database.CreateCommand(sql);
-            //var cur = cmd.ExecuteQuery<TripCurrencies>();
+            SqlCrudUtils.SetBaseCurrency(tripCurr);
         }
 
         private CostValues CostValue { get; }

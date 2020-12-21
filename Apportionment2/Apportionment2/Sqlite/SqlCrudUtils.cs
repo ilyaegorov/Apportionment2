@@ -120,5 +120,43 @@ namespace Apportionment2.Sqlite
 
             return false;
         }
+
+        public static void SetBaseCurrency(TripCurrencies tripCurr)
+        {
+          
+            var attrs = App.Database.Table<ObjectAttrs>()
+                .Where(c => c.AttrId == "1" && tripCurr.id != c.ObjectId);
+
+            foreach (var a in attrs)
+                Delete(a);
+
+            ObjectAttrs newAttr = new ObjectAttrs
+            {
+                id = Guid.NewGuid().ToString(),
+                AttrId = "1",
+                AttrValue = "BaseCurrency",
+                ObjectId = tripCurr.id,
+                Sync = tripCurr.Sync
+            };
+
+            Save(newAttr);
+        }
+
+        public static TripCurrencies CreateTripCurrencies(string tripId, string sync, string currencyId)
+        {
+            TripCurrencies newTripCurrency = new TripCurrencies
+            {
+                id = Guid.NewGuid().ToString(),
+                TripId = tripId,
+                CurrencyId = currencyId,
+                DateCreate = DateTime.Now.ToString(App.DateFormat),
+                Sync = sync
+            };
+
+            SqlCrudUtils.Save(newTripCurrency);
+
+            return newTripCurrency;
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Apportionment2.Sqlite;
 using Xamarin.Forms;
+using Apportionment2.CustomElements;
 
 namespace Apportionment2
 {
@@ -64,9 +65,9 @@ namespace Apportionment2
             return label;
         }
         
-        internal static Entry GetEntry(object bindingContext, double width, double fontSize, Color color)
+        internal static CustomEntry GetEntry(object bindingContext, double width, double fontSize, Color color)
         {
-            Entry entry = new Entry
+            CustomEntry entry = new CustomEntry
             {
                 IsVisible = true,
                 BindingContext = bindingContext,
@@ -82,9 +83,9 @@ namespace Apportionment2
             return entry;
         }
 
-        internal static Entry GetDoubleEntry(object bindingContext, double width, double fontSize, Color color)
+        internal static CustomEntry GetDoubleEntry(object bindingContext, double width, double fontSize, Color color)
         {
-            Entry entry = Utils.GetEntry(bindingContext, width, fontSize, color);
+            CustomEntry entry = Utils.GetEntry(bindingContext, width, fontSize, color);
             entry.HorizontalTextAlignment = TextAlignment.Center;
             entry.HorizontalOptions = LayoutOptions.End;
             entry.Keyboard = Keyboard.Numeric;

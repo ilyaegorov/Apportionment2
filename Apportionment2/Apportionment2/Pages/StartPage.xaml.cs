@@ -12,12 +12,12 @@ namespace Apportionment2.Pages
         {
             InitializeComponent();
 
-            ButtonAbout.Text = Resource.StartMenuItemAbout;
+            //ButtonAbout.Text = Resource.StartMenuItemAbout;
             ButtonExit.Text = Resource.StartMenuItemExit;
-            ButtonHelp.Text = Resource.StartMenuItemHelp;
+            //ButtonHelp.Text = Resource.StartMenuItemHelp;
             ButtonStart.Text = Resource.StartMenuItemStart;
             ButtonLoad.Text = Resource.StartMenuItemLoad;
-            ButtonSyncAzure.Text = Resource.StartMenuItemSyncWithAzure;
+            //ButtonSyncAzure.Text = Resource.StartMenuItemSyncWithAzure;
         }
 
         private async void ButtonStart_Click(object sender, EventArgs e)

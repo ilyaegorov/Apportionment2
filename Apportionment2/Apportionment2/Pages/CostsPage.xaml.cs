@@ -43,8 +43,6 @@ namespace Apportionment2.Pages
 
         private void RefreshPage()
         {
-          //  TripNameEntry.Text = _trip.Name;
-
             // Gets list of trip costs.
             var costs = App.Database.Table<Costs>().Where(n => n.TripId == _trip.id).ToList().OrderBy(n => n.DateCreate);
             var costsCollection =new ObservableCollection<CostView>();
@@ -139,6 +137,15 @@ namespace Apportionment2.Pages
             }
             else if (action == Resource.CostsPageCurrencies)
             {
+                TripCurrencies baseCurrency = Utils.GetBaseTripCurrencies(_trip.id);
+
+                if (baseCurrency == null)
+                {
+                    CurrencyDictionary defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
+                    TripCurrencies tripCurr = SqlCrudUtils.CreateTripCurrencies(_trip.id, _trip.Sync, defaultCurrency.id); ;
+                    SqlCrudUtils.SetBaseCurrency(tripCurr);
+                }
+
                 TripCurrenciesPage page = new TripCurrenciesPage(_trip);
 
                 await Navigation.PushAsync(page);

@@ -382,11 +382,11 @@
     <comment>Помощь</comment>
   </data>
   <data name="StartMenuItemLoad" xml:space="preserve">
-    <value>Загрузка сохраненного распределения</value>
+    <value>Загрузка сохраненного путешествия</value>
     <comment>Загрузка сохраненного распределения</comment>
   </data>
   <data name="StartMenuItemStart" xml:space="preserve">
-    <value>Начать новое распределение</value>
+    <value>Начать новое путешествие</value>
     <comment>Начать новое распределение</comment>
   </data>
   <data name="StartPage1stPot" xml:space="preserve">

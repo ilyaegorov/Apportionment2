@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:extensions="clr-namespace:Apportionment2.Extensions;assembly=Apportionment2"
-             xmlns:apportionment="clr-namespace:Apportionment2;assembly=Apportionment2"
+             xmlns:custom="clr-namespace:Apportionment2.CustomElements"
              x:Class="Apportionment2.Pages.CostPage">
 
     <ContentPage.Resources>
@@ -48,7 +47,7 @@
     <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
         <StackLayout Style="{StaticResource StackLayout}" Padding="0" VerticalOptions="Start" >
 
-            <Entry x:Name="CostName" FontSize="20"
+            <custom:CustomEntry x:Name="CostName" FontSize="20"
                    BackgroundColor="#F5F5F5"
                    TextColor="#474b4f"
                    HorizontalOptions="FillAndExpand"
@@ -59,14 +58,15 @@
                    Unfocused="CostNameEntry_OnUnfocused"
                    ClearButtonVisibility="WhileEditing"
                    >
-            </Entry>
-            <DatePicker x:Name ="CostDate"
+            </custom:CustomEntry>
+            <custom:CustomDatePicker x:Name ="CostDate"
                         FontSize="15"
                         TextColor="Gray"
                         Format="D"
+                        MinimumWidthRequest="20"
                         DateSelected ="OnDateSelected" 
-                        HorizontalOptions="Fill">
-            </DatePicker>
+                        HorizontalOptions="StartAndExpand">
+            </custom:CustomDatePicker>
         </StackLayout>
 
         <ScrollView x:Name="ScrollPayments" 

@@ -21,30 +21,27 @@ namespace Apportionment2.Pages
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+            //base.OnAppearing();
             Refresh();
-            // base.OnAppearing();
+            base.OnAppearing();
         }
 
         private void SetBaseCurrencyElements()
         {
-            LabelBaseCurrency.Text = Resource.TripCurrenciesPageBaseCurrency;
-
             TripCurrencies baseCurrency = GetBaseTripCurrencies();
 
             if (baseCurrency == null)
             {
-                DisplayAlert(null, Resource.TripCurrenciesPageSetBaseCurrencyMessage, Resource.Ok);
-                BaseCurrencyStackLayout_OnTapped(null, null);
-                //  Refresh();
-                //  baseCurrency = GetBaseTripCurrencies();
+                _baseCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
+                TripCurrencies tripCurr = SqlCrudUtils.CreateTripCurrencies(_trip.id, _trip.Sync, _baseCurrency.id); ;
+                SqlCrudUtils.SetBaseCurrency(tripCurr);
             }
             else
             {
                 _baseCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.id == baseCurrency.CurrencyId);
-                SetControlName(_baseCurrency);
             }
 
+            SetControlName(_baseCurrency);
         }
 
         private void Refresh()
@@ -91,13 +88,13 @@ namespace Apportionment2.Pages
         private void AddCurrencyButton_OnClicked(object sender, EventArgs e)
         {
             CurrenciesPage currenciesPage = new CurrenciesPage(_trip, false);
-            Navigation.PushModalAsync(currenciesPage);
+            Navigation.PushAsync(currenciesPage);
         }
 
         private void BaseCurrencyStackLayout_OnTapped(object sender, EventArgs args)
         {
             CurrenciesPage currenciesPage = new CurrenciesPage(_trip, true);
-            Navigation.PushModalAsync(currenciesPage);
+            Navigation.PushAsync(currenciesPage);
         }
 
         private async void SelectCurrencyButton_OnClicked(object sender, EventArgs e)
