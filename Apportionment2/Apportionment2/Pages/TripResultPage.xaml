@@ -42,7 +42,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Menu" Clicked="MenuItem_OnClicked"  Order="Primary" Priority="0" />
+        <ToolbarItem Text=". . ." Clicked="MenuItem_OnClicked"  Order="Primary" Priority="0" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
 

@@ -18,6 +18,8 @@ namespace Apportionment2.Pages
             _cost = SqlCrudUtils.GetNewCost(_tripId);
             _users = Utils.GetUsers(_tripId);
             _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
+            NavigationPage.SetHasBackButton(this, false);
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
 
@@ -29,12 +31,14 @@ namespace Apportionment2.Pages
             _userCostShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == _cost.id).ToList();
             _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
             _users = Utils.GetUsers(_tripId);
+            NavigationPage.SetHasBackButton(this, false);
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
-            Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
+           // Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
             SetButtonName();
             CostName.Text = _cost.CostName;
             CostDate.Date = Utils.DateFromString(_cost.DateCreate);
@@ -624,6 +628,7 @@ namespace Apportionment2.Pages
                     {
                         _costValues.Remove(cv);
                         SqlCrudUtils.Delete(cv);
+                        RefreshPage();
                     }
                 });
             }
@@ -640,11 +645,12 @@ namespace Apportionment2.Pages
 
                         _userCostShares.Remove(ucs);
                         SqlCrudUtils.Delete(ucs);
+                        RefreshPage();
                     }
                 });
             }
 
-            RefreshPage();
+           // RefreshPage();
         }
 
         private async void SelectCurrencyButton_OnClicked(object sender, EventArgs e)
