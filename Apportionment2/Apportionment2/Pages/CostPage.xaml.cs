@@ -6,6 +6,7 @@ using Apportionment2.Sqlite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Apportionment2.CustomElements;
+using System.Threading.Tasks;
 
 namespace Apportionment2.Pages
 {
@@ -15,6 +16,7 @@ namespace Apportionment2.Pages
         public CostPage(string tripId)
         {
             _tripId = tripId;
+            _isNewCostCreated = true;
             _cost = SqlCrudUtils.GetNewCost(_tripId);
             _users = Utils.GetUsers(_tripId);
             _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
@@ -22,6 +24,8 @@ namespace Apportionment2.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
+
+      
 
         public CostPage(Costs cost) 
         {
@@ -39,14 +43,21 @@ namespace Apportionment2.Pages
         protected override void OnAppearing()
         {
            // Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
-            CostNameEntryDefSet();
+            SetButtonName();
             CostName.Text = _cost.CostName;
             CostDate.Date = Utils.DateFromString(_cost.DateCreate);
             RefreshPage();
+
+            if (_isNewCostCreated)
+            {
+                CostName.Focus();
+                _isNewCostCreated = false;
+            }
+
             base.OnAppearing();
         }
 
-        private void CostNameEntryDefSet()
+        private void SetButtonName()
         {
             CostName.Placeholder = Resource.CostPageCostNamePlaceholder;
             CostName.PlaceholderColor = Color.Gray;
@@ -60,7 +71,16 @@ namespace Apportionment2.Pages
             CreateParticipantsList();
 
             if (emptyNameEntry != null)
-                emptyNameEntry.Focus();
+            {
+                {
+                    // Hack to show the keyboard. 
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await System.Threading.Tasks.Task.Delay(250);
+                        emptyNameEntry.Focus();
+                    });
+                }
+            }
         }
 
         private void CreatePaymentsList()
@@ -691,6 +711,7 @@ namespace Apportionment2.Pages
             }
         }
 
+        bool _isNewCostCreated = false;
         private Label paymentsLabel;
         private Entry emptyNameEntry;
         private CurrencyDictionary _defaultCurrency;

@@ -23,11 +23,13 @@ namespace Apportionment2.Pages
 		    };
 
             SqlCrudUtils.Save(_trip);
-
+            _isNewTripCreated = true;
             InitializeComponent ();
 		}
 
-	    public TripNamePage(Trips trip)
+        private bool _isNewTripCreated = false;
+
+        public TripNamePage(Trips trip)
 	    {
 	        _trip = trip;
             InitializeComponent();
@@ -36,22 +38,28 @@ namespace Apportionment2.Pages
         protected override void OnAppearing()
         {
             Refresh();
+
+            // Does not work. But works in CostPage.
+            if (_isNewTripCreated)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await System.Threading.Tasks.Task.Delay(250);
+                    TripNameEntry.Focus();
+                });
+                _isNewTripCreated = false;
+            }
+
             base.OnAppearing();
-	       
-	    }
+
+
+        }
 
 	    private void Refresh()
 	    {
             TripNameEntry.Placeholder = Resource.TripNamePageTripNamePlaceholder;
             TripNameEntry.PlaceholderColor = Color.Gray;
             TripNameEntry.Text = _trip.Name;
-
-            //   if (string.IsNullOrEmpty(_trip.Name))
-            //    TripNameEntry.Placeholder = Resource.TripNamePageTripNamePlaceholder;
-            //else
-            //    TripNameEntry.Text = _trip.Name;
-
-            //   TripNameEntry.PlaceholderColor = Color.Gray;
 
             DateStartLabel.Text = Resource.TripNamePageDataStartLabel;
 	        DateEndLabel.Text = Resource.TripNamePageDataEndLabel;
