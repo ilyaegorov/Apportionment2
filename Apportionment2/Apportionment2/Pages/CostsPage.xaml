@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:Apportionment2.Extensions;assembly=Apportionment2"
+             
              xmlns:apportionment="clr-namespace:Apportionment2;assembly=Apportionment2"
              x:Class="Apportionment2.Pages.CostsPage">
 

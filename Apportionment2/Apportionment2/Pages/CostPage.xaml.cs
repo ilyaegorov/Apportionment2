@@ -39,16 +39,17 @@ namespace Apportionment2.Pages
         protected override void OnAppearing()
         {
            // Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
-            SetButtonName();
+            CostNameEntryDefSet();
             CostName.Text = _cost.CostName;
             CostDate.Date = Utils.DateFromString(_cost.DateCreate);
             RefreshPage();
             base.OnAppearing();
         }
 
-        private void SetButtonName()
+        private void CostNameEntryDefSet()
         {
             CostName.Placeholder = Resource.CostPageCostNamePlaceholder;
+            CostName.PlaceholderColor = Color.Gray;
         }
 
         private void RefreshPage()

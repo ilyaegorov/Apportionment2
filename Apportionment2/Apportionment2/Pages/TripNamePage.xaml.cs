@@ -34,27 +34,41 @@ namespace Apportionment2.Pages
 	    }
 
         protected override void OnAppearing()
-	    {
-	        base.OnAppearing();
-	        Refresh();
+        {
+            Refresh();
+            base.OnAppearing();
+	       
 	    }
 
 	    private void Refresh()
 	    {
-	        if (string.IsNullOrEmpty(_trip.Name))
-	            TripNameEntry.Placeholder = Resource.TripNamePageTripNamePlaceholder;
-	        else
-	            TripNameEntry.Text = _trip.Name;
+            TripNameEntry.Placeholder = Resource.TripNamePageTripNamePlaceholder;
+            TripNameEntry.PlaceholderColor = Color.Gray;
+            TripNameEntry.Text = _trip.Name;
 
-	        DateStartLabel.Text = Resource.TripNamePageDataStartLabel;
-	        DateEndLabel.Text = Resource.TripNamePageDataStartLabel;
+            //   if (string.IsNullOrEmpty(_trip.Name))
+            //    TripNameEntry.Placeholder = Resource.TripNamePageTripNamePlaceholder;
+            //else
+            //    TripNameEntry.Text = _trip.Name;
+
+            //   TripNameEntry.PlaceholderColor = Color.Gray;
+
+            DateStartLabel.Text = Resource.TripNamePageDataStartLabel;
+	        DateEndLabel.Text = Resource.TripNamePageDataEndLabel;
 	        DateTime dateStart = Utils.DateFromString(_trip.DateBegin);
 	        DateStartDatePicker.Date = dateStart;
             DateTime dateEnd = Utils.DateFromString(_trip.DateEnd);
             DateEndDatePicker.Date = dateEnd;
         }
 
-	    private void DateEndDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
+        protected override bool OnBackButtonPressed()
+        {
+            CostsPage costsPage = new CostsPage(_trip);
+            Navigation.PushAsync(costsPage, false);
+            return true;
+        }
+
+        private void DateEndDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
 	    {
 	        _trip.DateEnd = e.NewDate.ToString(App.DateFormat);
             SqlCrudUtils.Save(_trip);
@@ -68,7 +82,7 @@ namespace Apportionment2.Pages
 
 	    private Trips _trip;
 
-	    private async void TripNameEntry_OnUnfocused(object sender, FocusEventArgs e)
+	    private  void TripNameEntry_OnUnfocused(object sender, FocusEventArgs e)
 	    {
 	        Entry entry = sender as Entry;
 
@@ -79,7 +93,14 @@ namespace Apportionment2.Pages
             TripCurrencies tripCurr = SqlCrudUtils.CreateTripCurrencies(_trip.id, _trip.Sync, defaultCurrency.id); ;
             SqlCrudUtils.SetBaseCurrency(tripCurr);
 
-            await Navigation.PopAsync();
+            //CostsPage costsPage = new CostsPage(_trip);
+            //await Navigation.PushAsync(costsPage, false);
         }
-	}
+
+        private void TripNameEntry_Completed(object sender, EventArgs e)
+        {
+            Entry entry = sender as Entry;
+            entry?.Unfocus();
+        }
+    }
 }

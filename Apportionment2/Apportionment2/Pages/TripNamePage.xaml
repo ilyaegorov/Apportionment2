@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:custom="clr-namespace:Apportionment2.CustomElements"
              x:Class="Apportionment2.Pages.TripNamePage">
 
     <ContentPage.Resources>
@@ -12,6 +13,16 @@
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="BorderColor" Value="#708090" />
+                <Setter Property="BorderRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="ButtonEmpty" TargetType="Button">
+                <Setter Property="TextColor" Value="#F5F5F5" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderColor" Value="#F5F5F5" />
                 <Setter Property="BorderRadius" Value="6" />
                 <Setter Property="BorderWidth" Value="1" />
             </Style>
@@ -29,19 +40,30 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.Content>
+    <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
         <StackLayout Style="{StaticResource StackLayout}"  Orientation="Vertical">
             <Entry x:Name ="TripNameEntry"
-                VerticalOptions="Start" 
-                Unfocused="TripNameEntry_OnUnfocused"
-                HorizontalOptions="FillAndExpand"/>
+                              
+                                  
+                                FontSize="20"
+                   BackgroundColor="#F5F5F5"
+                   TextColor="#474b4f"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center"
+                   Margin="0"
+                   Completed="TripNameEntry_Completed"
+                   Unfocused="TripNameEntry_OnUnfocused"
+                   ClearButtonVisibility="WhileEditing"
+                                
+                                />     
             <StackLayout Style="{StaticResource StackLayout}"  Orientation="Horizontal">
                 
                 <Label x:Name ="DateStartLabel"
                        VerticalOptions="CenterAndExpand" 
                        HorizontalOptions="CenterAndExpand"/>
                 
-                <DatePicker x:Name ="DateStartDatePicker"
+                <custom:CustomDatePicker x:Name ="DateStartDatePicker"
                             TextColor="Gray"
                             VerticalOptions="StartAndExpand" 
                             Format="D"
@@ -53,8 +75,9 @@
                 <Label x:Name ="DateEndLabel"
                        VerticalOptions="CenterAndExpand" 
                        HorizontalOptions="CenterAndExpand"/>
-                
-                <DatePicker x:Name ="DateEndDatePicker"
+
+                <custom:CustomDatePicker x:Name ="DateEndDatePicker"
+                            TextColor="Gray"
                             Format="D"
                             MaximumDate="01/01/2099"
                             VerticalOptions="CenterAndExpand" 
@@ -62,5 +85,5 @@
                             HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+    </StackLayout>
 </ContentPage>

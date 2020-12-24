@@ -130,7 +130,7 @@ namespace Apportionment2.Pages
 
             if (action == Resource.CalcApportionPageAdd)
             {
-                //ButtonAdd_OnClicked(sender, e);
+                AddButton_OnClicked(null, null);
             }
             else if (action == Resource.CostsPageDeleteUser)
             {

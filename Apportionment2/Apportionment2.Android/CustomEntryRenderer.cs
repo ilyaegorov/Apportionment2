@@ -5,7 +5,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Apportionment2.CustomElements;
 using Apportionment2.Droid;
-
+using Android.Widget;
+using Android.Runtime;
 
 [assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
 namespace Apportionment2.Droid
@@ -22,11 +23,14 @@ namespace Apportionment2.Droid
 
             if (Control != null)
             {
-                //GradientDrawable gd = new GradientDrawable();
-                //gd.SetColor(global::Android.Graphics.Color.Transparent);
+                // Remove entry underlining.
                 Control.SetBackgroundColor(global::Android.Graphics.Color.Transparent);
                 Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
                 Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));
+
+                System.IntPtr IntPtrtextViewClass = Android.Runtime.JNIEnv.FindClass(typeof(TextView));
+                System.IntPtr mCursorDrawableResProperty = JNIEnv.GetFieldID(IntPtrtextViewClass, "mCursorDrawableRes", "I");
+                JNIEnv.SetField(Control.Handle, mCursorDrawableResProperty, 0);
             }
         }
     }

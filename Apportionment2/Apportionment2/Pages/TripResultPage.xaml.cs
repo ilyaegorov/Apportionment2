@@ -476,7 +476,7 @@ namespace Apportionment2.Pages
             ChangeText(ref m_HtmlStrings, LbCostUsT, Resource.Pot);
             ChangeText(ref m_HtmlStrings, LbShare, Resource.CaptionShare);
             ChangeText(ref m_HtmlStrings, LbSpend, Resource.ResultApportionmentPageSpend);
-            ChangeText(ref m_HtmlStrings, LbMustToPay, "Должен");
+            ChangeText(ref m_HtmlStrings, LbMustToPay, "Сумма на участника");
             ChangeText(ref m_HtmlStrings, LbDelta, Resource.ResultApportionmentPagePerDelta);
 
             ChangeText(ref m_HtmlStrings, LbCred, "Получатель");

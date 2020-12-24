@@ -47,7 +47,8 @@
     <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
         <StackLayout Style="{StaticResource StackLayout}" Padding="0" VerticalOptions="Start" >
 
-            <custom:CustomEntry x:Name="CostName" FontSize="20"
+            <custom:CustomEntry x:Name="CostName" 
+                                FontSize="20"
                    BackgroundColor="#F5F5F5"
                    TextColor="#474b4f"
                    HorizontalOptions="FillAndExpand"
