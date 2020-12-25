@@ -77,6 +77,8 @@ namespace Apportionment2
                 BackgroundColor = Color.FromHex("#F5F5F5"),
                 WidthRequest = width,
                 HeightRequest = 38,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
                 ClearButtonVisibility = ClearButtonVisibility.WhileEditing
             };
 

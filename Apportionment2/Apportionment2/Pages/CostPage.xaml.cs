@@ -67,6 +67,7 @@ namespace Apportionment2.Pages
         {
             StackLayoutScroll.Children.Clear();
             nameEntries.Clear();
+            nameLabels.Clear();
             CreatePaymentsList();
             CreateParticipantsList();
 
@@ -99,14 +100,8 @@ namespace Apportionment2.Pages
                 Color backGroundColor = (colorIndex % 2 == 0) ? Color.FromHex("#F5F5F5") : Color.FromHex("#FFFFFF");
                 StackLayout paymentItemLayout = Utils.GetNewStackLayout(costValue, StackOrientation.Horizontal);
                 paymentItemLayout.BackgroundColor = backGroundColor;
-            
-                //Elements of the paymentItemLayout.
-                Button bRemove = GetRemoveButton(costValue);
+                paymentItemLayout.Padding = new Thickness(5, 0, 0, 0);
                 Users user = _users.FirstOrDefault(n => n.id == costValue.UserId);
-                CustomEntry payerNameEntry = GetNameEntry(user, 140, 15, Color.Black);
-                nameEntries.Add(payerNameEntry);
-                payerNameEntry.BackgroundColor = backGroundColor;
-
                 Button currencyButton = GetCurrencyButton(costValue);
                 currencyButton.BackgroundColor = backGroundColor;
 
@@ -118,24 +113,83 @@ namespace Apportionment2.Pages
                 string currencyCode = App.Database.Table<CurrencyDictionary>()
                     .FirstOrDefault(n => n.id == costValue.CurrencyId).Code;
                 string userName = user.Name;
-
-                if (string.IsNullOrEmpty(userName))
-                    emptyNameEntry = payerNameEntry;
-
                 currencyButton.Text = currencyCode;
-                payerNameEntry.Text = userName;
-                payerNameEntry.Unfocused += EntryName_Unfocused;
-
                 sum.Text = $"{costValue.Value:0.00}";
                 sum.Unfocused += EntryCostValue_Unfocused;
               
-                paymentItemLayout.Children.Add(bRemove);
-                paymentItemLayout.Children.Add(payerNameEntry);
+                if (string.IsNullOrEmpty(userName) || (renamedUserObject == costValue))
+                {
+                    CustomEntry payerNameEntry = NameEntry(user, userName, backGroundColor);
+                    renamedUserObject = null;
+                    emptyNameEntry = payerNameEntry;
+                    nameEntries.Add(payerNameEntry);
+                    paymentItemLayout.Children.Add(payerNameEntry);
+                }
+                else
+                {
+                    Label payerNameLabel = NameLabel(costValue, userName, backGroundColor);
+                    nameLabels.Add(payerNameLabel);
+                    paymentItemLayout.Children.Add(payerNameLabel);
+                }
+
                 paymentItemLayout.Children.Add(currencyButton);
                 paymentItemLayout.Children.Add(sum);
                 paymentsListLayout.Children.Add(paymentItemLayout);
                 StackLayoutScroll.Children.Add(paymentsListLayout);
                 colorIndex++;
+            }
+        }
+
+        private CustomEntry NameEntry(object bindingContext, string userName, Color backGroundColor)
+        {
+            CustomEntry payerNameEntry = GetNameEntry(bindingContext, 140, 15, Color.Black);
+            payerNameEntry.Text = userName;
+            payerNameEntry.Unfocused += EntryName_Unfocused;
+            payerNameEntry.BackgroundColor = backGroundColor;
+
+            return payerNameEntry;
+        }
+
+        private Label NameLabel(object bindingContext, string userName, Color backGroundColor)
+        {
+            Label payerNameLabel = GetNameLabel(bindingContext, userName, 140, 15, backGroundColor);
+            var payerNameLabelTapGestureRecognizer = new TapGestureRecognizer();
+            payerNameLabelTapGestureRecognizer.Tapped += (s, e) => nameLabel_OnTapped(payerNameLabel, null);
+            payerNameLabel.GestureRecognizers.Add(payerNameLabelTapGestureRecognizer);
+            return payerNameLabel;
+        }
+
+        private async void nameLabel_OnTapped(object sender, TextChangedEventArgs e)
+        {
+            List<string> dialogNameLabel = new List<string>();
+            dialogNameLabel.Add(Resource.CostPageDeleteItem);
+            dialogNameLabel.Add(Resource.CostPageRenameParticipant);
+
+          
+            var dialogAddPayment = await DisplayActionSheet(null, Resource.Cancel, null, dialogNameLabel.ToArray());
+
+            if (dialogAddPayment == Resource.Cancel || dialogAddPayment == null)
+            {
+                // do nothing
+            }
+            else if (dialogAddPayment == Resource.CostPageDeleteItem)
+            {
+                Label nameLabel = sender as Label;
+
+                if (nameLabel == null)
+                    return;
+
+                DelteItem(nameLabel.BindingContext);
+            }
+            else if (dialogAddPayment == Resource.CostPageRenameParticipant)
+            {
+                Label nameLabel = sender as Label;
+
+                if (nameLabel == null)
+                    return;
+
+                renamedUserObject = nameLabel.BindingContext;
+                RefreshPage();
             }
         }
 
@@ -150,11 +204,7 @@ namespace Apportionment2.Pages
             var participantsTitleTapGestureRecognizer = new TapGestureRecognizer();
             participantsTitleTapGestureRecognizer.Tapped += (s, e) => UserShareLayout_OnTapped(null, null);
             participantsTitle.GestureRecognizers.Add(participantsTitleTapGestureRecognizer);
-
-            // BoxView line = GetLine(null);
-            // StackLayoutScroll.Children.Add(line);
             StackLayoutScroll.Children.Add(participantsTitle);
-            // StackLayoutScroll.Children.Add(line);
             StackLayout paymentsListLayout = GetNewStackLayout(null);
 
             int colorIndex = 0;
@@ -163,35 +213,36 @@ namespace Apportionment2.Pages
             {
                 Color backGroundColor = (colorIndex % 2 == 0) ? Color.FromHex("#F5F5F5") : Color.FromHex("#FFFFFF");
                 StackLayout userShareLayout = Utils.GetNewStackLayout(userShare, StackOrientation.Horizontal);
-            
+                userShareLayout.Padding = new Thickness(5, 0, 0, 0);
                 userShareLayout.BackgroundColor = backGroundColor;
                 Users user = _users.FirstOrDefault(n => n.id == userShare.UserId);
-                
-                //Elements of the paymentItemLayout.
-                Button bRemove = GetRemoveButton(userShare);
-
-                CustomEntry participantNameEntry = GetNameEntry(user, 140, 15, Color.Black);
-                participantNameEntry.BackgroundColor = backGroundColor;
-                nameEntries.Add(participantNameEntry);
 
                 CustomEntry share = Utils.GetDoubleEntry(userShare, 100, 15, Color.Green);
                 share.BackgroundColor = backGroundColor;
                 share.TextChanged += EntryValue_Replaced;
                 share.Focused += EntryValue_Focused;
-
-                if (string.IsNullOrEmpty(user.Name))
-                    emptyNameEntry = participantNameEntry;
-
-                participantNameEntry.Text = user.Name;
-                participantNameEntry.Unfocused += EntryName_Unfocused;
+                string userName = user.Name;
+                
+                if (string.IsNullOrEmpty(userName) || (renamedUserObject == userShare))
+                {
+                    CustomEntry payerNameEntry = NameEntry(user, userName, backGroundColor);
+                    renamedUserObject = null;
+                    emptyNameEntry = payerNameEntry;
+                    nameEntries.Add(payerNameEntry);
+                    userShareLayout.Children.Add(payerNameEntry);
+                }
+                else
+                {
+                    Label payerNameLabel = NameLabel(userShare, userName, backGroundColor);
+                    nameLabels.Add(payerNameLabel);
+                    userShareLayout.Children.Add(payerNameLabel);
+                }
 
                 share.Text = $"{userShare.Share:0.00}";
                 share.Unfocused += EntryUserShare_Unfocused;
 
                 StackLayoutScroll.Children.Add(paymentsListLayout);
                 paymentsListLayout.Children.Add(userShareLayout);
-                userShareLayout.Children.Add(bRemove);
-                userShareLayout.Children.Add(participantNameEntry);
                 userShareLayout.Children.Add(share);
 
                 StackLayoutScroll.Children.Add(paymentsListLayout);
@@ -264,10 +315,21 @@ namespace Apportionment2.Pages
             return line;
         }
 
+        private Label GetNameLabel(object bindingContext, string name, double width, double fontSize, Color color)
+        {
+            Label label = Utils.GetLabel(bindingContext, name, width, 38, fontSize);
+            label.BackgroundColor = color;
+            label.HorizontalTextAlignment = TextAlignment.Start;
+            label.VerticalTextAlignment = TextAlignment.Center;
+            label.HorizontalOptions = LayoutOptions.FillAndExpand;
+            return label;
+        }
+
         private CustomEntry GetNameEntry(object bindingContext, double width, double fontSize, Color color)
         {
             CustomEntry entry = Utils.GetEntry(bindingContext, width, fontSize, color);
             entry.HorizontalTextAlignment = TextAlignment.Start;
+            entry.VerticalTextAlignment = TextAlignment.Center;
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
             return entry;
         }
@@ -581,6 +643,12 @@ namespace Apportionment2.Pages
                 if (nameEntry.BindingContext == user)
                     nameEntry.Text = user.Name;
             }
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                    RefreshPage();
+            });
+            // RefreshPage();
         }
 
         private void EntryValue_Replaced(object sender, TextChangedEventArgs e)
@@ -637,11 +705,9 @@ namespace Apportionment2.Pages
             _hasUnsavedData = true;
         }
 
-        private async void RemoveButton_OnClicked(object sender, EventArgs e)
+        private void DelteItem(object bindingContext)
         {
-            Button bRemove = sender as Button;
-
-            if (bRemove != null && bRemove.BindingContext is CostValues cv)
+            if (bindingContext is CostValues cv)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -653,23 +719,32 @@ namespace Apportionment2.Pages
                     }
                 });
             }
-            else
+            else if (bindingContext is UserCostShares ucs)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (await DisplayAlert(null, Resource.CostsPageDeleteUserShareMessage, Resource.Yes, Resource.No))
                     {
-                        UserCostShares ucs = bRemove.BindingContext as UserCostShares;
-
-                        if (ucs == null)
-                            return;
-
                         _userCostShares.Remove(ucs);
                         SqlCrudUtils.Delete(ucs);
                         RefreshPage();
                     }
                 });
             }
+            else
+            {
+                return;
+            }
+        }
+
+        private async void RemoveButton_OnClicked(object sender, EventArgs e)
+        {
+            Button bRemove = sender as Button;
+
+            if (bRemove == null)
+                return;
+
+            DelteItem(bRemove.BindingContext);
 
            // RefreshPage();
         }
@@ -719,10 +794,11 @@ namespace Apportionment2.Pages
         private List<UserCostShares> _userCostShares = new List<UserCostShares>();
         private List<Users> _users = new List<Users>();
         private List<CustomEntry> nameEntries = new List<CustomEntry>();
+        private List<Label> nameLabels = new List<Label>();
         private string spaceChar = ((char)32).ToString();
         private string _tripId;
         private Costs _cost;
-        private bool _newItem = false;
         private bool _hasUnsavedData = false;
+        private object renamedUserObject;
     }
 }

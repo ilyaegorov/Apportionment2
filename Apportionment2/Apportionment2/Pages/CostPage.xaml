@@ -45,7 +45,7 @@
     </ContentPage.ToolbarItems>-->
    
     <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
-        <StackLayout Style="{StaticResource StackLayout}" Padding="0" VerticalOptions="Start" >
+        <StackLayout Style="{StaticResource StackLayout}" Padding="0" VerticalOptions="Start" Spacing="0">
 
             <custom:CustomEntry x:Name="CostName" 
                                 FontSize="20"
@@ -64,7 +64,6 @@
                         FontSize="15"
                         TextColor="Gray"
                         Format="D"
-                        MinimumWidthRequest="20"
                         DateSelected ="OnDateSelected" 
                         HorizontalOptions="StartAndExpand">
             </custom:CustomDatePicker>

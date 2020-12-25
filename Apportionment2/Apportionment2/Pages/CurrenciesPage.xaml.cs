@@ -10,7 +10,7 @@ namespace Apportionment2.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CurrenciesPage : ContentPage
     {
-        public IList<CurrencyDictionary> Currencies;
+        public List<CurrencyDictionary> Currencies;
 
         public CurrenciesPage()
         {
@@ -34,7 +34,16 @@ namespace Apportionment2.Pages
         private void Initialize()
         {
             InitializeComponent();
-            Currencies = App.Database.Table<CurrencyDictionary>().ToList();
+            Currencies = new List<CurrencyDictionary>();
+            Currencies.Add(App.Database.Table<CurrencyDictionary>().First(c => c.id == "643")); // Российский рубль
+            Currencies.Add(App.Database.Table<CurrencyDictionary>().First(c => c.id == "840")); // Доллар
+            Currencies.Add(App.Database.Table<CurrencyDictionary>().First(c => c.id == "978")); // Евро
+            Currencies.Add(App.Database.Table<CurrencyDictionary>().First(c => c.id == "398")); // Теньге
+            Currencies.Add(App.Database.Table<CurrencyDictionary>().First(c => c.id == "933")); // Белорусский рубль
+
+            Currencies.AddRange(App.Database.Table<CurrencyDictionary>()
+                .Where(c => c.id != "933" && c.id != "643" && c.id != "840" && c.id != "978" && c.id != "398").ToList());
+
             CurrenciesListAll.ItemsSource = Currencies;
         }
 
@@ -44,7 +53,10 @@ namespace Apportionment2.Pages
                 CurrenciesListAll.ItemsSource = Currencies;
             else
                 CurrenciesListAll.ItemsSource = 
-                    Currencies.Where(currencies => currencies.Name.ToLower().Contains(e.NewTextValue.ToLower()));
+                    Currencies.Where(currencies => currencies.Name.ToLower().Contains(e.NewTextValue.ToLower())
+                    || currencies.Code.ToLower().Contains(e.NewTextValue.ToLower())
+                    || currencies.id.ToLower().Contains(e.NewTextValue.ToLower())
+                    );
         }
 
         private async void CurrenciesList_OnItemTapped(object sender, ItemTappedEventArgs e)

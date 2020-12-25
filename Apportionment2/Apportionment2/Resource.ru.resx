@@ -853,4 +853,12 @@
     <value>Удалить участника?</value>
     <comment>Delete participant</comment>
   </data>
+  <data name="CostPageDeleteItem" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="CostPageRenameParticipant" xml:space="preserve">
+    <value>Переименовать участника</value>
+    <comment>Rename the participant</comment>
+  </data>
 </root>

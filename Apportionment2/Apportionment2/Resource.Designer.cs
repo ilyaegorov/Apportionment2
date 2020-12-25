@@ -1511,6 +1511,23 @@ namespace Apportionment2 {
                 return ResourceManager.GetString("CostsPageCurrencies", resourceCulture);
             }
         }
+
+        public static string CostPageDeleteItem
+        {
+            get
+            {
+                return ResourceManager.GetString("CostPageDeleteItem", resourceCulture);
+            }
+        }
+
+        public static string CostPageRenameParticipant
+        { 
+            get
+            {
+                return ResourceManager.GetString("CostPageRenameParticipant", resourceCulture);
+            }
+        }
+
         public static string CostsPageRenameTrip
         {
             get
