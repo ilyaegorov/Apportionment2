@@ -95,6 +95,7 @@
     <Compile Include="CloseAppUwp.cs" />
     <Compile Include="Extensions\ListViewModRendereUWP.cs" />
     <Compile Include="HtmlReportWorkerUwp.cs" />
+    <Compile Include="LabelWithLongClickRendererUWP.cs" />
     <Compile Include="LocalizeUwp.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -152,6 +153,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
+    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.6.292</Version>
     </PackageReference>

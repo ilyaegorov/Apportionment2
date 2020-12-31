@@ -170,11 +170,13 @@ namespace Apportionment2.Pages
             else if (action == Resource.CalcApportionPageEndJourney)
             {
                 _trip.DateEnd = DateTime.Now.ToString(App.DateFormat);
+                SqlCrudUtils.Save(_trip);
                 await DisplayAlert(null, Resource.CalcApportionPageEndJourneyMessage, Resource.Ok);
             }
             else if (action == Resource.CalcApportionPageContinueJourney)
             {
                 _trip.DateEnd = App.DataEnd;
+                SqlCrudUtils.Save(_trip);
                 await DisplayAlert(null, Resource.CalcApportionPageContinueJourneyMessage, Resource.Ok);
             }
             else if (action == Resource.CalcApportionPageExitFromProj)

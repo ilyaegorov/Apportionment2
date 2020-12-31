@@ -1726,5 +1726,21 @@ namespace Apportionment2 {
                 return ResourceManager.GetString("CostsPageDeleteUser", resourceCulture);
             }
         }
+
+        public static string Select
+        {
+            get
+            {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+
+        public static string UsersFromOtherTrips
+        {
+            get
+            {
+                return ResourceManager.GetString("UsersFromOtherTrips", resourceCulture);
+            }
+        }
     }
 }

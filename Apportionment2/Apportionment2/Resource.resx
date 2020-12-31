@@ -873,4 +873,12 @@
     <value>Rename the participant</value>
     <comment>Rename the participant</comment>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+    <comment>Сохранить</comment>
+  </data>
+  <data name="UsersFromOtherTrips" xml:space="preserve">
+    <value>Users from other trips</value>
+    <comment>Users from other trips</comment>
+  </data>
 </root>

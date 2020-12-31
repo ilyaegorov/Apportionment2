@@ -861,4 +861,12 @@
     <value>Переименовать участника</value>
     <comment>Rename the participant</comment>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
+    <comment>Сохранить</comment>
+  </data>
+  <data name="UsersFromOtherTrips" xml:space="preserve">
+    <value>Участники из других путешествий</value>
+    <comment>UsersFromOtherTrips</comment>
+  </data>
 </root>

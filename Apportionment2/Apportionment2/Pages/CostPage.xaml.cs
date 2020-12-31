@@ -6,6 +6,7 @@ using Apportionment2.Sqlite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Apportionment2.CustomElements;
+using Rg.Plugins.Popup.Extensions;
 using System.Threading.Tasks;
 
 namespace Apportionment2.Pages
@@ -31,15 +32,12 @@ namespace Apportionment2.Pages
         {
             _tripId = cost.TripId;
             _cost = cost;
-            _costValues = App.Database.Table<CostValues>().Where(n => n.CostId == _cost.id).ToList();
-            _userCostShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == _cost.id).ToList();
-            _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
-            _users = Utils.GetUsers(_tripId);
+            
             NavigationPage.SetHasBackButton(this, false);
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
-
+        
         protected override void OnAppearing()
         {
            // Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
@@ -51,10 +49,12 @@ namespace Apportionment2.Pages
             if (_isNewCostCreated)
             {
                 CostName.Focus();
+                CostName.CursorPosition = CostName.Text.Length;
                 _isNewCostCreated = false;
             }
 
             base.OnAppearing();
+
         }
 
         private void SetButtonName()
@@ -65,6 +65,11 @@ namespace Apportionment2.Pages
 
         private void RefreshPage()
         {
+            _costValues = App.Database.Table<CostValues>().Where(n => n.CostId == _cost.id).ToList();
+            _userCostShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == _cost.id).ToList();
+            _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
+            _users = Utils.GetUsers(_tripId);
+
             StackLayoutScroll.Children.Clear();
             nameEntries.Clear();
             nameLabels.Clear();
@@ -79,6 +84,7 @@ namespace Apportionment2.Pages
                     {
                         await System.Threading.Tasks.Task.Delay(250);
                         emptyNameEntry.Focus();
+                        emptyNameEntry.CursorPosition = emptyNameEntry.Text.Length;
                     });
                 }
             }
@@ -88,7 +94,7 @@ namespace Apportionment2.Pages
         {
             paymentsLabel = GetTitleLabel(null, Resource.CostPagePayments);
             var paymentsLabelTapGestureRecognizer = new TapGestureRecognizer();
-            paymentsLabelTapGestureRecognizer.Tapped += (s, e) => paymentItemLayout_OnTapped(null, null);
+            paymentsLabelTapGestureRecognizer.Tapped += (s, e) => PaymentItemLayout_OnTapped(null, null);
             paymentsLabel.GestureRecognizers.Add(paymentsLabelTapGestureRecognizer);
 
             StackLayoutScroll.Children.Add(paymentsLabel);
@@ -117,7 +123,7 @@ namespace Apportionment2.Pages
                 sum.Text = $"{costValue.Value:0.00}";
                 sum.Unfocused += EntryCostValue_Unfocused;
               
-                if (string.IsNullOrEmpty(userName) || (renamedUserObject == costValue))
+                if (string.IsNullOrEmpty(userName) || ((renamedUserObject is CostValues cv) && (cv.id == costValue.id)))
                 {
                     CustomEntry payerNameEntry = NameEntry(user, userName, backGroundColor);
                     renamedUserObject = null;
@@ -154,12 +160,12 @@ namespace Apportionment2.Pages
         {
             Label payerNameLabel = GetNameLabel(bindingContext, userName, 140, 15, backGroundColor);
             var payerNameLabelTapGestureRecognizer = new TapGestureRecognizer();
-            payerNameLabelTapGestureRecognizer.Tapped += (s, e) => nameLabel_OnTapped(payerNameLabel, null);
+            payerNameLabelTapGestureRecognizer.Tapped += (s, e) => NnameLabel_OnTapped(payerNameLabel, null);
             payerNameLabel.GestureRecognizers.Add(payerNameLabelTapGestureRecognizer);
             return payerNameLabel;
         }
 
-        private async void nameLabel_OnTapped(object sender, TextChangedEventArgs e)
+        private async void NnameLabel_OnTapped(object sender, TextChangedEventArgs e)
         {
             List<string> dialogNameLabel = new List<string>();
             dialogNameLabel.Add(Resource.CostPageDeleteItem);
@@ -193,11 +199,13 @@ namespace Apportionment2.Pages
             }
         }
 
-        private void paymentItemLayout_OnTapped(object sender, TextChangedEventArgs e)
+        private async void PaymentItemLayout_OnTapped(object sender, TextChangedEventArgs e)
         {
-            AddPayment();
+            var page = new SelectUserDialogPage(_tripId, _cost.id, true);
+            await Navigation.PushAsync(page);
+            // AddPayment();
         }
-
+       
         private void CreateParticipantsList()
         {
             Label participantsTitle = GetTitleLabel(null, Resource.Participants);
@@ -223,7 +231,7 @@ namespace Apportionment2.Pages
                 share.Focused += EntryValue_Focused;
                 string userName = user.Name;
                 
-                if (string.IsNullOrEmpty(userName) || (renamedUserObject == userShare))
+                if (string.IsNullOrEmpty(userName) || ((renamedUserObject is UserCostShares ucs) && (ucs.id == userShare.id)))
                 {
                     CustomEntry payerNameEntry = NameEntry(user, userName, backGroundColor);
                     renamedUserObject = null;
@@ -250,9 +258,11 @@ namespace Apportionment2.Pages
             }
         }
 
-        private void UserShareLayout_OnTapped(object sender, TextChangedEventArgs e)
+        private async void UserShareLayout_OnTapped(object sender, TextChangedEventArgs e)
         {
-            AddUserShare();
+            //AddUserShare();
+            var page = new SelectUserDialogPage(_tripId, _cost.id, false);
+            await Navigation.PushAsync(page);
         }
 
         private Button GetCurrencyButton(object bindingContext)
@@ -341,6 +351,9 @@ namespace Apportionment2.Pages
 
         private async void AddButton_OnClicked(object sender, EventArgs e)
         {
+
+            //var page = new SelectUserDialogPage(_tripId);
+            //await Navigation.PushPopupAsync(page);
             var actionAdd = await DisplayActionSheet(null, Resource.Cancel, null, Resource.CostPageAddPayment,
                 Resource.CostPageAddParticipant);
 
@@ -350,12 +363,22 @@ namespace Apportionment2.Pages
             }
             else if (actionAdd == Resource.CostPageAddPayment)
             {
-                AddPayment();
+                var page = new SelectUserDialogPage(_tripId, _cost.id, true);
+                await Navigation.PushAsync(page);
+                // await Navigation.PushPopupAsync(page);
+                // RefreshPage();
+                // AddPayment();
             }
             else if (actionAdd == Resource.CostPageAddParticipant)
             {
-                AddUserShare();
+                var page = new SelectUserDialogPage(_tripId, _cost.id, false);
+                await Navigation.PushAsync(page);
+               // await Navigation.PushPopupAsync(page);
+                //RefreshPage();
+                //AddUserShare();
             }
+
+           // RefreshPage();
         }
 
         private async void AddUserShare()
@@ -475,14 +498,7 @@ namespace Apportionment2.Pages
 
         private Users GetNewUser()
         {
-            Users user = new Users
-            {
-                id = Guid.NewGuid().ToString(),
-                Name = "",
-                Sync = _cost.Sync
-            };
-
-            return user;
+            return SqlCrudUtils.GetNewUser(_tripId);
         }
 
         private void AddNewUserCostShare(string userId)

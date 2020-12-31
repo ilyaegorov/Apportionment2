@@ -93,6 +93,7 @@
     <Compile Include="CloseAppiOs.cs" />
     <Compile Include="Extensions\ListViewModRendereriOs.cs" />
     <Compile Include="HtmlReportWorkeriOS.cs" />
+    <Compile Include="LabelWithLongClickRendereriOs.cs" />
     <Compile Include="LocalizeiOs.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -103,6 +104,12 @@
     <BundleResource Include="Resources\Trips.db" />
   </ItemGroup>
   <ItemGroup>
+    <ImageAsset Include="LabelWithLongClickRendereriOs.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="LabelWithLongClickRendereriOs.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
@@ -154,6 +161,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
+    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.6.292</Version>
     </PackageReference>

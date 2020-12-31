@@ -68,6 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
+    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.6.292</Version>
     </PackageReference>
@@ -87,6 +90,7 @@
     <Compile Include="CustomEntryRenderer.cs" />
     <Compile Include="Extensions\ListViewRendererDriod.cs" />
     <Compile Include="HtmlReportWorkerDroid.cs" />
+    <Compile Include="LabelWithLongClickRenderer.cs" />
     <Compile Include="LocalizeDroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -95,9 +99,7 @@
     <Compile Include="ZoomableWebViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Trips.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AndroidAsset>
+    <AndroidAsset Include="Assets\Trips.db" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

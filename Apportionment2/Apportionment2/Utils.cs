@@ -4,6 +4,7 @@ using System.Linq;
 using Apportionment2.Sqlite;
 using Xamarin.Forms;
 using Apportionment2.CustomElements;
+using Apportionment2.Extensions;
 
 namespace Apportionment2
 {
@@ -64,7 +65,25 @@ namespace Apportionment2
 
             return label;
         }
-        
+
+        internal static LabelWithLongClick GetLabelWithLongClick(object bindingContext, string text, double width, double height, double fontSize)
+        {
+            LabelWithLongClick label = new LabelWithLongClick
+            {
+                BindingContext = bindingContext,
+                Text = text,
+                FontSize = fontSize,
+                TextColor = Color.FromHex("#708090"),
+                BackgroundColor = Color.FromHex("#F5F5F5"),
+                WidthRequest = width,
+                HeightRequest = height,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center
+            };
+
+            return label;
+        }
+
         internal static CustomEntry GetEntry(object bindingContext, double width, double fontSize, Color color)
         {
             CustomEntry entry = new CustomEntry

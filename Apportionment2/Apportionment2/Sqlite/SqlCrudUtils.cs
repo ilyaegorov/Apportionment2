@@ -51,6 +51,31 @@ namespace Apportionment2.Sqlite
             return newCostValue;
         }
 
+        public static Users GetNewUser(string tripId)
+        {
+            Users user = new Users
+            {
+                id = Guid.NewGuid().ToString(),
+                Name = "",
+                Sync = Utils.SyncStatus(tripId)
+            };
+
+            return user;
+        }
+
+        public static TripUsers GeTripUsers(string userId, string tripId)
+        {
+            TripUsers tripUser = new TripUsers
+            {
+                id = Guid.NewGuid().ToString(),
+                TripId = tripId,
+                UserId = userId,
+                Sync = Utils.SyncStatus(tripId)
+            };
+
+            return tripUser;
+        }
+
         public static void DeleteCost(Costs cost)
         {
             var costShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == cost.id);

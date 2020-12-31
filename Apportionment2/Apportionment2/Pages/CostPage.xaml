@@ -43,8 +43,8 @@
     <!--<ContentPage.ToolbarItems>
         <ToolbarItem Text="..." Clicked="MenuItem_OnClicked"  Order="Primary" Priority="0"/>
     </ContentPage.ToolbarItems>-->
-   
-    <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
+
+    <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0"   Padding="10">
         <StackLayout Style="{StaticResource StackLayout}" Padding="0" VerticalOptions="Start" Spacing="0">
 
             <custom:CustomEntry x:Name="CostName" 

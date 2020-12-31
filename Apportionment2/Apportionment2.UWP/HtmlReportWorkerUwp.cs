@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Apportionment2.Interfaces;
@@ -56,7 +54,7 @@ namespace Apportionment2.UWP
 
         public Task ShareDb()
         {
-            throw new NotImplementedException();
+             throw new NotImplementedException();
         }
 
         public Task ShareHtmlAsync(string filename, List<string> result)

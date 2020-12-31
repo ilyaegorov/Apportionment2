@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Support.V4.App;
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms.Platform.Android;
 
 namespace Apportionment2.Droid
@@ -20,10 +21,11 @@ namespace Apportionment2.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState); 
-            
+
             // CheckAppPermissions();
         }
 
@@ -43,7 +45,6 @@ namespace Apportionment2.Droid
                 var permissions = new string[] { Manifest.Permission.ReadExternalStorage, Manifest.Permission.WriteExternalStorage };
                 ActivityCompat.RequestPermissions(this, permissions, 1);
             }
-        
         }
     }
 
