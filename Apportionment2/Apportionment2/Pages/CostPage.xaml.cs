@@ -49,7 +49,10 @@ namespace Apportionment2.Pages
             if (_isNewCostCreated)
             {
                 CostName.Focus();
-                CostName.CursorPosition = CostName.Text.Length;
+
+                if (!string.IsNullOrEmpty(CostName.Text))
+                    CostName.CursorPosition = CostName.Text.Length;
+
                 _isNewCostCreated = false;
             }
 
@@ -65,8 +68,8 @@ namespace Apportionment2.Pages
 
         private void RefreshPage()
         {
-            _costValues = App.Database.Table<CostValues>().Where(n => n.CostId == _cost.id).ToList();
-            _userCostShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == _cost.id).ToList();
+            GetData();
+
             _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
             _users = Utils.GetUsers(_tripId);
 
@@ -87,6 +90,26 @@ namespace Apportionment2.Pages
                         emptyNameEntry.CursorPosition = emptyNameEntry.Text.Length;
                     });
                 }
+            }
+        }
+
+        private void GetData()
+        {
+            var allValues = App.Database.Table<CostValues>().Where(n => n.CostId == _cost.id).ToList();
+            var allShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == _cost.id).ToList();
+
+            if (_hasUnsavedData)
+            {
+                var values = allValues.Where(n=>!_costValues.Any(x => x.id == n.id)).ToList();
+                _costValues.AddRange(values);
+
+                var shares = allShares.Where(n => !_userCostShares.Any(x => x.id == n.id)).ToList();
+                _userCostShares.AddRange(shares);
+            }
+            else
+            {
+                _costValues = allValues;
+                _userCostShares = allShares;
             }
         }
 

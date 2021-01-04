@@ -71,7 +71,8 @@ namespace Apportionment2.Pages
 
         private async void SaveInFileButton_OnClicked(object sender, EventArgs e)
         {
-            await DependencyService.Get<IHtmlReport>().SaveReportDocAsync(string.Format("{0}.html", _trip.Name), _htmlResult);
+            await DependencyService.Get<IHtmlReport>().
+                SaveReportDocAsync(string.Format("{0}_{1}.html", _trip.Name, DateTime.Now.ToString("yy-mm-dd HH:MM")), _htmlResult);
         }
 
         private async void ShareFileButton_OnClicked(object sender, EventArgs e)
@@ -81,6 +82,8 @@ namespace Apportionment2.Pages
 
         private void Calculate()
         {
+            _results.Clear();
+
             List <Costs> noShareCosts = new List<Costs>();
 
             foreach (Costs cost in _costs)
@@ -294,6 +297,10 @@ namespace Apportionment2.Pages
                         _htmlResult.AddRange(stringValue);
 
                         currentAboveZeroSum -= delta;
+
+                        if (currentAboveZeroSum <= 0)
+                            break;
+
                         currentLessThanZeroSum += delta;
 
                         if (currentLessThanZeroSum == 0)
@@ -401,12 +408,12 @@ namespace Apportionment2.Pages
         {
             List<string> stringPotResultValues =GetTemplateStrings(startIndex + 1, endIndex);
             Costs cost = App.Database.Table<Costs>().FirstOrDefault(n => n.id == costResult.CostId);
-
+           
             ChangeText(ref stringPotResultValues, CostNameUsT, cost.CostName);
             ChangeText(ref stringPotResultValues, UserShare, $"{costResult.UserCostShare:0.0000}");
             ChangeText(ref stringPotResultValues, UserSpend, $"{costResult.Spend:0.00}");
             ChangeText(ref stringPotResultValues, UserMustPay, $"{costResult.UserMustPay:0.00}");
-            ChangeText(ref stringPotResultValues, DeltaUser, $"{costResult.Delta:0.00}");
+            ChangeText(ref stringPotResultValues, DeltaUser, $"{(costResult.Delta>0 ?"+" :"")}{costResult.Delta:0.00}");
 
             result.AddRange(stringPotResultValues);
         }
