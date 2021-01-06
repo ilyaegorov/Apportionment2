@@ -196,16 +196,16 @@ namespace Apportionment2.Pages
 	        if (Utils.GetBaseTripCurrencies(_trip.id) == null)
 	        {
 	           // await DisplayAlert(null, Resource.TripCurrenciesPageSetBaseCurrencyMessage, Resource.Ok);
-	            TripCurrenciesPage currenciesPage = new TripCurrenciesPage(_trip);
-	            await Navigation.PushAsync(currenciesPage);
+	            TripCurrenciesPage currenciesPage = new TripCurrenciesPage(_trip, true);
+	            await Navigation.PushAsync(currenciesPage , true);
 	            return;
 	        }
 
-	        if (Utils.AreAllRatesSet(_trip.id))
+	        if (Utils.NotAllRatesAreSet(_trip.id))
 	        {
 	            await DisplayAlert(null, Resource.CostsPageAddAllRatesMessage, Resource.Ok);
-	            TripCurrenciesPage currenciesPage = new TripCurrenciesPage(_trip);
-	            await Navigation.PushAsync(currenciesPage);
+	            TripCurrenciesPage currenciesPage = new TripCurrenciesPage(_trip, true);
+	            await Navigation.PushAsync(currenciesPage, true);
 	            return;
             }
 

@@ -137,7 +137,7 @@ namespace Apportionment2
             return cur.FirstOrDefault();
         }
 
-        internal static bool AreAllRatesSet(string tripId)
+        internal static bool NotAllRatesAreSet(string tripId)
         {
             TripCurrencies baseCurrencies = GetBaseTripCurrencies(tripId);
 

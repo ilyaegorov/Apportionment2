@@ -195,6 +195,7 @@ namespace Apportionment2.Pages
 
             int indexOfUserTableFisrtStringEnd = m_HtmlStrings.FindIndex(indexOfSecondTableEnd + 1, n => n.Contains(StringTableEnd));
             int indexOfUserTableSecondStringEnd = m_HtmlStrings.FindIndex(indexOfUserTableFisrtStringEnd + 1, n => n.Contains(StringTableEnd));
+            int indexOfUserTableTotalStringEnd = m_HtmlStrings.FindIndex(indexOfUserTableSecondStringEnd + 1, n => n.Contains(StringTableEnd));
             int indexOfUserInsideTableEnd = m_HtmlStrings.FindIndex(indexOfUserTableSecondStringEnd + 1, n => n.Contains(TableEnd));
             int indexOfCharacterTableEnd = m_HtmlStrings.FindIndex(indexOfUserInsideTableEnd + 1, n => n.Contains(TableEnd));
             int indexOfUserTableEnd = m_HtmlStrings.FindIndex(indexOfCharacterTableEnd + 1, n => n.Contains(TableEnd));
@@ -229,6 +230,7 @@ namespace Apportionment2.Pages
                     user,
                     indexOfUserTableSecondStringEnd,
                     indexOfUserInsideTableEnd,
+                    indexOfUserTableTotalStringEnd,
                     indexOfUserTableEnd);
 
             if (_results.Any())
@@ -370,6 +372,7 @@ namespace Apportionment2.Pages
            Users user,
            int indexOfUserTableSecondStringEnd,
            int indexOfUserInsideTableEnd,
+           int indexOfUserTableTotalStringEnd,
            int indexOfUserTableEnd)
         {
             List<string> stringValues = GetTemplateStrings(indexOfSecondTableEnd + 1, indexOfUserTableFisrtStringEnd);
@@ -380,6 +383,8 @@ namespace Apportionment2.Pages
 
             foreach (TripResults costResult in costsResults)
                 InsertCostsUserString(ref stringValues, costResult,indexOfUserTableFisrtStringEnd + 1, indexOfUserTableSecondStringEnd);
+
+            InsertTotalCostsUserString(ref stringValues, user.id, indexOfUserTableSecondStringEnd + 1, indexOfUserTableTotalStringEnd);
 
             for (int ind = indexOfUserInsideTableEnd; ind <= indexOfUserTableEnd; ind++)
                 stringValues.Add(m_HtmlStrings[ind]);
@@ -414,6 +419,21 @@ namespace Apportionment2.Pages
             ChangeText(ref stringPotResultValues, UserSpend, $"{costResult.Spend:0.00}");
             ChangeText(ref stringPotResultValues, UserMustPay, $"{costResult.UserMustPay:0.00}");
             ChangeText(ref stringPotResultValues, DeltaUser, $"{(costResult.Delta>0 ?"+" :"")}{costResult.Delta:0.00}");
+
+            result.AddRange(stringPotResultValues);
+        }
+
+        private void InsertTotalCostsUserString(ref List<string> result, string userId, int startIndex, int endIndex)
+        {
+            var spendTotal = _results.Where(n => n.TripId == _trip.id && n.UserId == userId).Sum(n=>n.Spend);
+            var sumTotal = _results.Where(n => n.TripId == _trip.id && n.UserId == userId).Sum(n => n.UserMustPay);
+            var deltaTotal = _results.Where(n => n.TripId == _trip.id && n.UserId == userId).Sum(n => n.Delta);
+            List<string> stringPotResultValues = GetTemplateStrings(startIndex + 1, endIndex);
+
+            ChangeText(ref stringPotResultValues, UserSpendTotal, $"{sumTotal:0.00}");
+            ChangeText(ref stringPotResultValues, UserMustPayTotal, $"{sumTotal:0.00}");
+            ChangeText(ref stringPotResultValues, DeltaUserTotal, $"{deltaTotal:0.00}");
+           
 
             result.AddRange(stringPotResultValues);
         }
@@ -659,6 +679,9 @@ namespace Apportionment2.Pages
         private const string DebName = "DebName";
         private const string LbSum = "LbSum";
         private const string DebtSum = "DebtSum";
+        private const string UserSpendTotal = "UserSpendTotal";
+        private const string UserMustPayTotal = "UserMustPayTotal";
+        private const string DeltaUserTotal = "DeltaUserTotal";
 
         private const string TitleScheme = "TitleScheme";
     }

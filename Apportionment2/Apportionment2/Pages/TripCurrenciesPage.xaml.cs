@@ -19,6 +19,13 @@ namespace Apportionment2.Pages
             _trip = trip;
         }
 
+        public TripCurrenciesPage(Trips trip, bool fromCalculated)
+        {
+            InitializeComponent();
+            _trip = trip;
+            _isCalculated = true;
+        }
+
         protected override void OnAppearing()
         {
             //base.OnAppearing();
@@ -273,7 +280,7 @@ namespace Apportionment2.Pages
                 entry.Text = "";
         }
 
-        public void exchangeRateEntry_Unfocused(object sender, FocusEventArgs e)
+        public async void exchangeRateEntry_Unfocused(object sender, FocusEventArgs e)
         {
             Entry entry = sender as Entry;
 
@@ -297,6 +304,15 @@ namespace Apportionment2.Pages
             {
                 entry.Text = $"{rate.Rate:0.00}";
             }
+
+
+            if (_isCalculated && !Utils.NotAllRatesAreSet(_trip.id))
+            {
+                TripResultPage page = new TripResultPage();
+                page.BindingContext = _trip;
+                await Navigation.PushAsync(page);
+            }
+            
         }
 
         private void SetColor(Entry entry, double value)
@@ -324,5 +340,6 @@ namespace Apportionment2.Pages
         private CurrencyDictionary _baseCurrency;
         private List<CurrencyDictionary> _allOtherCurrencies;
         private List<StackLayout> _itemLayouts = new List<StackLayout>();
+        private bool _isCalculated = false;
     }
 }

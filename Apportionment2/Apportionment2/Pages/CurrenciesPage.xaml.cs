@@ -81,7 +81,9 @@ namespace Apportionment2.Pages
 
             }
 
-            await Navigation.PopModalAsync(false);
+            {
+                await Navigation.PopAsync(false);
+            }
         }
 
         private TripCurrencies CreateTripCurrencies(string tripId, string sync, string currencyId)
