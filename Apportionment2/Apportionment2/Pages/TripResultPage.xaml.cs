@@ -430,7 +430,7 @@ namespace Apportionment2.Pages
             var deltaTotal = _results.Where(n => n.TripId == _trip.id && n.UserId == userId).Sum(n => n.Delta);
             List<string> stringPotResultValues = GetTemplateStrings(startIndex + 1, endIndex);
 
-            ChangeText(ref stringPotResultValues, UserSpendTotal, $"{sumTotal:0.00}");
+            ChangeText(ref stringPotResultValues, UserSpendTotal, $"{spendTotal:0.00}");
             ChangeText(ref stringPotResultValues, UserMustPayTotal, $"{sumTotal:0.00}");
             ChangeText(ref stringPotResultValues, DeltaUserTotal, $"{deltaTotal:0.00}");
            
