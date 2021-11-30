@@ -178,6 +178,8 @@ namespace Apportionment2.Pages
 
         private async void CreateXml()
         {
+            _htmlResult.Clear();
+
             m_HtmlStrings = await DependencyService.Get<IHtmlReport>().LoadFromTemlate("ReportTemplateCurrency.html");
 
             ReplaceTemplateValues();
@@ -440,6 +442,9 @@ namespace Apportionment2.Pages
 
         private string GetCharacteristic(Users u)
         {
+            if (u == null)
+                return string.Empty;
+
             StringBuilder sb = new StringBuilder();
 
             var spend = _results.Select(n => new { UserId = n.UserId, Sum = n.Spend }).
@@ -469,9 +474,16 @@ namespace Apportionment2.Pages
             var alcoDict = App.Database.Table<AlcoDict>();
             var userShares = App.Database.Table<UserCostShares>().Where(n => n.UserId == u.id && n.TripId== _trip.id);
 
+            if (userShares.Count() == 0)
+                return string.Empty;
+
             foreach (var userShare in userShares)
             {
                 var cost = App.Database.Table<Costs>().FirstOrDefault(n => n.id == userShare.CostId);
+
+                if (cost == null)
+                    return string.Empty;
+
                 string costName = cost.CostName.ToLower();
 
                 //TODO Add checking of the payment comment
@@ -479,9 +491,7 @@ namespace Apportionment2.Pages
                     return alco;
             }
 
-
-            alco = "";
-            return alco;
+            return string.Empty;
         }
 
         private void ReplaceTemplateValues()

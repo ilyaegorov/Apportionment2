@@ -17,6 +17,7 @@ namespace Apportionment2.Pages
             //ButtonHelp.Text = Resource.StartMenuItemHelp;
             ButtonStart.Text = Resource.StartMenuItemStart;
             ButtonLoad.Text = Resource.StartMenuItemLoad;
+            ButtonExportDb.Text = "ExprotMySqlDb";
             //ButtonSyncAzure.Text = Resource.StartMenuItemSyncWithAzure;
         }
 
@@ -35,6 +36,16 @@ namespace Apportionment2.Pages
         private async void ButtonLoad_Click(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TripsListPage());
+        }
+
+        private async void ButtonLoadDb_Click(object sender, EventArgs e)
+        {
+            await DependencyService.Get<IHtmlReport>().ReplaceMySqlDb();
+        }
+
+        private async void ButtonExportDb_Click(object sender, EventArgs e)
+        {
+            await DependencyService.Get<IHtmlReport>().ShareDb();
         }
 
         private async void ButtonAbout_Click(object sender, EventArgs e)

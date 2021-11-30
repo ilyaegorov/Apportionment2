@@ -43,8 +43,14 @@
                 Style="{StaticResource ButtonStyle}" />
         <Button x:Name="ButtonAbout"
                 Clicked="ButtonAbout_Click"
+                Style="{StaticResource ButtonStyle}" />
+            <Button x:Name="ButtonLoadDb"
+                Clicked="ButtonLoadDb_Click"
                 Style="{StaticResource ButtonStyle}" />-->
-        <Button x:Name="ButtonExit"
+            <Button x:Name="ButtonExportDb"
+                Clicked="ButtonExportDb_Click"
+                Style="{StaticResource ButtonStyle}" />
+            <Button x:Name="ButtonExit"
                 Clicked="ButtonExit_Click"
                 Style="{StaticResource ButtonStyle}" />
     </StackLayout>

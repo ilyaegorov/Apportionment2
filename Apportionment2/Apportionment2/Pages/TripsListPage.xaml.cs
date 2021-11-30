@@ -94,7 +94,7 @@ namespace Apportionment2.Pages
 
 	    private void ImageButton_OnClicked(object sender, EventArgs e)
 	    {
-	        throw new NotImplementedException();
+	       // Do nothing.
 	    }
 	}
 }

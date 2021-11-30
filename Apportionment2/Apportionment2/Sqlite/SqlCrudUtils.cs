@@ -149,7 +149,7 @@ namespace Apportionment2.Sqlite
         {
           
             var attrs = App.Database.Table<ObjectAttrs>()
-                .Where(c => c.AttrId == "1" && tripCurr.id != c.ObjectId);
+                .Where(c => c.AttrId == "1" && tripCurr.id == c.ObjectId);
 
             foreach (var a in attrs)
                 Delete(a);

@@ -195,7 +195,7 @@ namespace Apportionment2.Pages
 
         private void SaveUsers()
         {
-            foreach (Users user in _users)
+            foreach (Users user in _selectedUsers)
             {
                 SqlCrudUtils.Save(user);
 

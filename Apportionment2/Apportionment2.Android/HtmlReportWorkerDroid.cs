@@ -11,14 +11,13 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Environment = System.Environment;
 using File = System.IO.File;
-using Java.Nio.Channels;
 
 [assembly: Dependency(typeof(HtmlReportWorkerDroid))]
 namespace Apportionment2.Droid
 {
     class HtmlReportWorkerDroid : IHtmlReport
     {
-        public string GetPath(string filename)
+        public string GetPathOld(string filename)
         {
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var path = Path.Combine(documentsPath, filename);
@@ -38,9 +37,16 @@ namespace Apportionment2.Droid
             return path;
         }
 
+        public string GetPath(string filename)
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var path = Path.Combine(documentsPath, filename);
+            return path;
+        }
+
         public Task<List<string>> LoadFromTemlate(string filename)
         {
-            return Task.FromResult(System.IO.File.ReadAllLines(GetPath(filename)).ToList());
+            return Task.FromResult(System.IO.File.ReadAllLines(GetPathOld(filename)).ToList());
         }
 
         public async Task SaveReportAsync(string filename, List<string> result)
@@ -106,18 +112,19 @@ namespace Apportionment2.Droid
                 Title = filename,
                 File = new ShareFile(path)
             });
+
+
         }
 
         public async Task ShareDb()
         {
             string fileName = "Trips.db";
-            string dbPath = GetPath(fileName);
-            var bytes = await Task.FromResult(System.IO.File.ReadAllBytes(GetPath(fileName)));
-            //string newFileName = "Trips.html";
-
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string dbPath = Path.Combine(documentsPath, fileName);
+            var bytes = await Task.FromResult(System.IO.File.ReadAllBytes(dbPath));
             int.TryParse(Android.OS.Build.VERSION.Sdk, out int apiVersion);
             CheckAppPermissions(apiVersion);
-            string newfileName = "Trips.rar";
+            string newfileName = "TripsExp.zip";
             var newPath = GetFullFilePath(newfileName);
 
             System.IO.File.WriteAllBytes(newPath, bytes);
@@ -177,6 +184,36 @@ namespace Apportionment2.Droid
             return info.VersionCode;
         }
 
+        public async Task ReplaceMySqlDb()
+        {
+            //var customFileType =
+
+            //    (new Dictionary<DevicePlatform, IEnumerable<string>>
+            //{
+            //    { DevicePlatform.iOS, new[] { "public.my.comic.extension" } }, // or general UTType values
+            //    { DevicePlatform.Android, new[] { "*.db" } },
+            //    { DevicePlatform.UWP, new[] { "*.db"} },
+            //});
+
+            //var options = await CrossFilePicker.Current.PickFile(fileTypes);
+            //{
+            //    PickerTitle = "Select file with data base",
+            //    FileTypes = customFileType,
+            //};
+
+            //var result = await CrossFilePicker.Current.PickFile(new[] string[] { "*.db" });
+
+            //if (result != null)
+            //{
+            //    var stream = await result.OpenReadAsync();
+            //    string fileName = "Trips.db";
+            //    string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //    string dbPath = Path.Combine(documentsPath, fileName);
+            //    byte[] bytesInStream = new byte[stream.Length];
+            //    stream.Read(bytesInStream, 0, bytesInStream.Length);
+            //    System.IO.File.WriteAllBytes(dbPath, bytesInStream);
+            //}
+        }
         //private void saveHtml()
         //{
         //    this.ContentResolver.Insert(Android.Provider.MediaStore.Images.Media.ExternalContentUri, values);

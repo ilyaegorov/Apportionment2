@@ -26,6 +26,11 @@ namespace Apportionment2.UWP
             return new List<string>(text);
         }
 
+        public Task ReplaceMySqlDb()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveReportAsync(string filename, List<string> result)
         {
             StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;

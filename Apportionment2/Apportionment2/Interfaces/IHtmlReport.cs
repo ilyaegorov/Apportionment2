@@ -13,5 +13,6 @@ namespace Apportionment2.Interfaces
         Task SaveReportDocAsync(string filename, List<string> result);
         Task ShareHtmlAsync(string filename, List<string> result);
         Task ShareDb();
+        Task ReplaceMySqlDb();
     }
 }

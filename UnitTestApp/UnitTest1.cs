@@ -105,5 +105,14 @@ namespace UnitTestApp
             string result = $"update {tableName} set Sync = Sync where id = {p}";
             Console.WriteLine(result);
         }
+
+        [TestMethod]
+        public void TestBinance()
+        {
+            string p = "asdfaf -asdf";
+            string tableName = "Costs";
+            string result = $"update {tableName} set Sync = Sync where id = {p}";
+            Console.WriteLine(result);
+        }
     }
 }

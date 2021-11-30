@@ -36,6 +36,11 @@ namespace Apportionment2.iOS
             return Task.FromResult(File.ReadAllLines(filePath).ToList());
         }
 
+        public Task ReplaceMySqlDb()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveReportAsync(string filename, List<string> result)
         {
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);

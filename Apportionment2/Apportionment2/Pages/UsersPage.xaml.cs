@@ -17,15 +17,15 @@ namespace Apportionment2.Pages
 		public UsersPage (string trip_Id)
 		{
             _tripId = trip_Id;
-            _users = Utils.GetUsers(_tripId);
+            _users = Utils.GetTripUsers(_tripId);
             InitializeComponent ();
 		}
 
         protected override void OnAppearing()
         {
             Title = App.Database.Table<Trips>().FirstOrDefault(n => n.id == _tripId).Name;
-            RefreshPage();
             base.OnAppearing();
+            RefreshPage();
         }
 
         private void RefreshPage()
@@ -128,20 +128,35 @@ namespace Apportionment2.Pages
             if (bRemove != null 
                 && bRemove.BindingContext is Users user 
                 && (Utils.SumByUser(user, _tripId) == 0)
-                && (!App.Database.Table<UserCostShares>().Where(n => n.TripId == _tripId && n.UserId == user.id).Any()))
+                && (!App.Database.Table<UserCostShares>().Where(n => n.TripId == _tripId && n.UserId == user.id).Any())
+               )
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (await DisplayAlert(null, Resource.UsersPageUserDeleteMessage, Resource.Yes, Resource.No))
                     {
-                        _users.Remove(user);
                         CostValues[] costValues = App.Database.Table<CostValues>().
                         Where(n => n.TripId == _tripId && n.UserId == user.id).ToArray();
 
                         foreach (var costValue in costValues)
                             SqlCrudUtils.Delete(costValue);
 
-                        RefreshPage();
+                        UserCostShares[] userShares = App.Database.Table<UserCostShares>().
+                        Where(n => n.TripId == _tripId && n.UserId == user.id).ToArray();
+
+                        foreach (var userShare in userShares)
+                            SqlCrudUtils.Delete(userShare);
+
+
+                        TripUsers[] tripUsers = App.Database.Table<TripUsers>().
+                         Where(n => n.TripId == _tripId && n.UserId == user.id).ToArray();
+
+                        foreach (var tripUser in tripUsers)
+                            SqlCrudUtils.Delete(tripUser);
+
+                        if (!App.Database.Table<UserCostShares>().Where(n =>  n.UserId == user.id).Any() && 
+                        (!App.Database.Table<CostValues>().Where(n => n.UserId == user.id).Any()))
+                        _users.Remove(user);
                     }
                 });
             }

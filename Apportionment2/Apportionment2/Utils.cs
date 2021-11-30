@@ -28,6 +28,15 @@ namespace Apportionment2
             return cmd.ExecuteQuery<Users>().ToList();
         }
 
+        public static List<Users> GetTripUsers(string tripId)
+        {
+            var sql = "Select distinct u.* from Users u " +
+                    "join TripUsers tu on tu.UserId = u.id and tu.TripId = '" + tripId + "' "
+                    ;
+
+            var cmd = App.Database.CreateCommand(sql);
+            return cmd.ExecuteQuery<Users>().ToList();
+        }
         public static List<Users> GetOtherUsers(string tripId)
         {
             var sql = "Select distinct u.* from Users u " +
