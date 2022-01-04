@@ -262,61 +262,74 @@ namespace Apportionment2.Pages
                 .Where(n => n.Total < 0)
                 .OrderBy(n => n.Total).ToList();
 
+            if (!aboveZeroUserSums.Any())
+                return;
+        
+            for (int ind = indexOfUserTableEnd + 1; ind <= indexOfMutualSettlementTableFirstStringEnd; ind++)
+                _htmlResult.Add(m_HtmlStrings[ind]);
 
-            if (aboveZeroUserSums.Any())
+            int indexDebt = 0;
+            double currentLessThanZeroSum = 0;
+
+            for (int ms = 0; ms < aboveZeroUserSums.Count(); ms++)
             {
-                for (int ind = indexOfUserTableEnd + 1; ind <= indexOfMutualSettlementTableFirstStringEnd; ind++)
-                    _htmlResult.Add(m_HtmlStrings[ind]);
+                double currentAboveZeroSum = aboveZeroUserSums[ms].Total;
 
-                int indexDebt = 0;
-                double currentLessThanZeroSum = 0;
-
-                for (int ms = 0; ms < aboveZeroUserSums.Count(); ms++)
+                for (int b = indexDebt; b < lessThanZeroUserSums.Count(); b++)
                 {
-                    double currentAboveZeroSum = aboveZeroUserSums[ms].Total;
+                    currentLessThanZeroSum = (currentLessThanZeroSum < 0)
+                        ? currentLessThanZeroSum
+                        : lessThanZeroUserSums[b].Total;
 
-                    for (int b = indexDebt; b < lessThanZeroUserSums.Count(); b++)
-                    {
-                        currentLessThanZeroSum = (currentLessThanZeroSum < 0)
-                            ? currentLessThanZeroSum
-                            : lessThanZeroUserSums[b].Total;
+                    var delta = (currentAboveZeroSum + currentLessThanZeroSum <= 0)
+                        ? Math.Abs(currentAboveZeroSum)
+                        : Math.Abs(currentLessThanZeroSum);
 
-                        List<string> stringValue = GetTemplateStrings(indexOfMutualSettlementTableSecondStringBegin,
-                            indexOfMutualSettlementTableSecondStringEnd);
+                    AddOneStringWithMutualSettlements(
+                        indexOfMutualSettlementTableSecondStringBegin,
+                        indexOfMutualSettlementTableSecondStringEnd,
+                        aboveZeroUserSums[ms].UserId,
+                        lessThanZeroUserSums[b].UserId,
+                        delta);
 
-                        string aboveZeroUserId = aboveZeroUserSums[ms].UserId;
-                        string lessZeroUserId = lessThanZeroUserSums[b].UserId;
+                    currentAboveZeroSum -= delta;
+                    currentLessThanZeroSum += delta;
 
-                        string userNameAboveZero = App.Database.Table<Users>().FirstOrDefault(n => n.id == aboveZeroUserId).Name;
-                        string userNameLessZero = App.Database.Table<Users>().FirstOrDefault(n => n.id == lessZeroUserId).Name;
+                    if (currentLessThanZeroSum == 0)
+                        indexDebt++;
 
-                        ChangeText(ref stringValue, CredName, userNameAboveZero);
-                        ChangeText(ref stringValue, DebName, userNameLessZero);
-
-                        var delta = (currentAboveZeroSum + currentLessThanZeroSum <= 0)
-                            ? Math.Abs(currentAboveZeroSum)
-                            : Math.Abs(currentLessThanZeroSum);
-
-                        ChangeText(ref stringValue, DebtSum, $"{delta:0.00}");
-                        _htmlResult.AddRange(stringValue);
-
-                        currentAboveZeroSum -= delta;
-
-                        if (currentAboveZeroSum <= 0)
-                            break;
-
-                        currentLessThanZeroSum += delta;
-
-                        if (currentLessThanZeroSum == 0)
-                            indexDebt++;
-                    }
+                    if (currentAboveZeroSum <= 0)
+                        break;
                 }
             }
-
+            
             for (int i = indexOfMutualSettlementTableSecondStringEnd + 1; i < m_HtmlStrings.Count; i++)
                 _htmlResult.Add(m_HtmlStrings[i]);
         }
 
+
+        private void AddOneStringWithMutualSettlements(
+            int indexOfMutualSettlementTableSecondStringBegin, 
+            int indexOfMutualSettlementTableSecondStringEnd,
+            string aboveZeroUserId,
+            string lessZeroUserId,
+            double delta)
+        {
+            List<string> stringValue = GetTemplateStrings(indexOfMutualSettlementTableSecondStringBegin,
+                          indexOfMutualSettlementTableSecondStringEnd);
+
+            //string aboveZeroUserId = aboveZeroUserSums[ms].UserId;
+            //string lessZeroUserId = lessThanZeroUserSums[b].UserId;
+
+            string userNameAboveZero = App.Database.Table<Users>().FirstOrDefault(n => n.id == aboveZeroUserId).Name;
+            string userNameLessZero = App.Database.Table<Users>().FirstOrDefault(n => n.id == lessZeroUserId).Name;
+
+            ChangeText(ref stringValue, CredName, userNameAboveZero);
+            ChangeText(ref stringValue, DebName, userNameLessZero);
+
+            ChangeText(ref stringValue, DebtSum, $"{delta:0.00}");
+            _htmlResult.AddRange(stringValue);
+        }
         /// <summary>
         /// Inserts string with pots data in result html file.
         /// </summary>
