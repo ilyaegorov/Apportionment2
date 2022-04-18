@@ -144,24 +144,29 @@ namespace Apportionment2.Sqlite
 
             return false;
         }
+        public static ObjectAttrs GetNewObjectAttrs(string attrId, string objectId, string attrValue, string sync)
+        {
+            ObjectAttrs newAttr = new ObjectAttrs
+            {
+                id = Guid.NewGuid().ToString(),
+                AttrId = attrId,
+                AttrValue = attrValue,
+                ObjectId = objectId,
+                Sync = sync
+            };
+
+            return newAttr;
+        }
 
         public static void SetBaseCurrency(TripCurrencies tripCurr)
         {
-          
             var attrs = App.Database.Table<ObjectAttrs>()
-                .Where(c => c.AttrId == "1" && tripCurr.id == c.ObjectId);
+              .Where(c => c.AttrId == "1" && c.ObjectId == tripCurr.id);
 
             foreach (var a in attrs)
                 Delete(a);
 
-            ObjectAttrs newAttr = new ObjectAttrs
-            {
-                id = Guid.NewGuid().ToString(),
-                AttrId = "1",
-                AttrValue = "BaseCurrency",
-                ObjectId = tripCurr.id,
-                Sync = tripCurr.Sync
-            };
+            ObjectAttrs newAttr = GetNewObjectAttrs("1", tripCurr.id, "BaseCurrency", tripCurr.Sync);
 
             Save(newAttr);
         }

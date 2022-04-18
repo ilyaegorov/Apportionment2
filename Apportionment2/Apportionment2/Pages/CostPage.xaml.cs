@@ -25,9 +25,6 @@ namespace Apportionment2.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
-
-      
-
         public CostPage(Costs cost) 
         {
             _tripId = cost.TripId;
@@ -57,7 +54,6 @@ namespace Apportionment2.Pages
             }
 
             base.OnAppearing();
-
         }
 
         private void SetButtonName()
@@ -71,32 +67,35 @@ namespace Apportionment2.Pages
             GetData();
 
             _defaultCurrency = App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.Code == Resource.DefaultCurrencyCode);
-            _users = Utils.GetUsers(_tripId);
+           _users = Utils.GetUsers(_tripId);
 
             StackLayoutScroll.Children.Clear();
-            nameEntries.Clear();
-            nameLabels.Clear();
+            _nameEntries.Clear();
+            _nameLabels.Clear();
             CreatePaymentsList();
             CreateParticipantsList();
+            
+            if (_emptyNameEntry == null)
+                return;
 
-            if (emptyNameEntry != null)
+            // Hack to show the keyboard. 
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                {
-                    // Hack to show the keyboard. 
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await System.Threading.Tasks.Task.Delay(250);
-                        emptyNameEntry.Focus();
-                        emptyNameEntry.CursorPosition = emptyNameEntry.Text.Length;
-                    });
-                }
-            }
+                await System.Threading.Tasks.Task.Delay(250);
+                _emptyNameEntry.Focus();
+                _emptyNameEntry.CursorPosition = _emptyNameEntry.Text.Length;
+            });
         }
 
         private void GetData()
         {
             var allValues = App.Database.Table<CostValues>().Where(n => n.CostId == _cost.id).ToList();
             var allShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == _cost.id).ToList();
+            var allObjectAttrs = new List<ObjectAttrs>();
+           
+            if (App.Database.Table<ObjectAttrs>().Any())
+                allObjectAttrs = App.Database.Table<ObjectAttrs>().AsEnumerable()
+                    .Where(n => n.AttrId == "2" && allValues.Any( a => a.id == n.ObjectId)).ToList();
 
             if (_hasUnsavedData)
             {
@@ -105,22 +104,26 @@ namespace Apportionment2.Pages
 
                 var shares = allShares.Where(n => !_userCostShares.Any(x => x.id == n.id)).ToList();
                 _userCostShares.AddRange(shares);
+
+                var objAttrs = allObjectAttrs.Where(n => !_objectAttrs.Any(x => x.id == n.id)).ToList();
+                _objectAttrs.AddRange(objAttrs);
             }
             else
             {
                 _costValues = allValues;
                 _userCostShares = allShares;
+                _objectAttrs = allObjectAttrs;
             }
         }
 
         private void CreatePaymentsList()
         {
-            paymentsLabel = GetTitleLabel(null, Resource.CostPagePayments);
+            _paymentsLabel = GetTitleLabel(null, Resource.CostPagePayments);
             var paymentsLabelTapGestureRecognizer = new TapGestureRecognizer();
             paymentsLabelTapGestureRecognizer.Tapped += (s, e) => PaymentItemLayout_OnTapped(null, null);
-            paymentsLabel.GestureRecognizers.Add(paymentsLabelTapGestureRecognizer);
+            _paymentsLabel.GestureRecognizers.Add(paymentsLabelTapGestureRecognizer);
 
-            StackLayoutScroll.Children.Add(paymentsLabel);
+            StackLayoutScroll.Children.Add(_paymentsLabel);
             StackLayout paymentsListLayout = GetNewStackLayout(null);
             int colorIndex = 0;
 
@@ -134,32 +137,51 @@ namespace Apportionment2.Pages
                 Button currencyButton = GetCurrencyButton(costValue);
                 currencyButton.BackgroundColor = backGroundColor;
 
+                ObjectAttrs costDescriotionObjAttr = _objectAttrs.FirstOrDefault(n => n.ObjectId == costValue.id);
+                object costDescriptionTarget;
+               
+                if (costDescriotionObjAttr == null)
+                    costDescriptionTarget = costValue;
+                else
+                    costDescriptionTarget = costDescriotionObjAttr;
+
+                CustomEntry costDescription = Utils.GetEntry(costDescriptionTarget, 120, 10, backGroundColor);
+                costDescription.HorizontalTextAlignment = TextAlignment.Start;
+                costDescription.TextColor = Color.FromHex("#708090");
+                costDescription.BackgroundColor = backGroundColor;
+                costDescription.Unfocused += EntryCostDescription_Unfocused;
+                costDescription.Text = (costDescriotionObjAttr == null) ? _space : costDescriotionObjAttr.AttrValue;
+               
+
                 CustomEntry sum = Utils.GetDoubleEntry(costValue, 100, 15, Color.Green);
                 sum.BackgroundColor = backGroundColor;
                 sum.TextChanged += EntryValue_Replaced;
                 sum.Focused += EntryValue_Focused;
 
-                string currencyCode = App.Database.Table<CurrencyDictionary>()
-                    .FirstOrDefault(n => n.id == costValue.CurrencyId).Code;
+                string currencyCode = 
+                    App.Database.Table<CurrencyDictionary>().FirstOrDefault(n => n.id == costValue.CurrencyId).Code;
+
                 string userName = user.Name;
                 currencyButton.Text = currencyCode;
                 sum.Text = $"{costValue.Value:0.00}";
                 sum.Unfocused += EntryCostValue_Unfocused;
               
-                if (string.IsNullOrEmpty(userName) || ((renamedUserObject is CostValues cv) && (cv.id == costValue.id)))
+                if (string.IsNullOrEmpty(userName) || ((_renamedUserObject is CostValues cv) && (cv.id == costValue.id)))
                 {
                     CustomEntry payerNameEntry = NameEntry(user, userName, backGroundColor);
-                    renamedUserObject = null;
-                    emptyNameEntry = payerNameEntry;
-                    nameEntries.Add(payerNameEntry);
+                    _renamedUserObject = null;
+                    _emptyNameEntry = payerNameEntry;
+                    _nameEntries.Add(payerNameEntry);
                     paymentItemLayout.Children.Add(payerNameEntry);
                 }
                 else
                 {
                     Label payerNameLabel = NameLabel(costValue, userName, backGroundColor);
-                    nameLabels.Add(payerNameLabel);
+                    _nameLabels.Add(payerNameLabel);
                     paymentItemLayout.Children.Add(payerNameLabel);
                 }
+
+                paymentItemLayout.Children.Add(costDescription);
 
                 paymentItemLayout.Children.Add(currencyButton);
                 paymentItemLayout.Children.Add(sum);
@@ -183,12 +205,12 @@ namespace Apportionment2.Pages
         {
             Label payerNameLabel = GetNameLabel(bindingContext, userName, 140, 15, backGroundColor);
             var payerNameLabelTapGestureRecognizer = new TapGestureRecognizer();
-            payerNameLabelTapGestureRecognizer.Tapped += (s, e) => NnameLabel_OnTapped(payerNameLabel, null);
+            payerNameLabelTapGestureRecognizer.Tapped += (s, e) => NameLabel_OnTapped(payerNameLabel, null);
             payerNameLabel.GestureRecognizers.Add(payerNameLabelTapGestureRecognizer);
             return payerNameLabel;
         }
 
-        private async void NnameLabel_OnTapped(object sender, TextChangedEventArgs e)
+        private async void NameLabel_OnTapped(object sender, TextChangedEventArgs e)
         {
             List<string> dialogNameLabel = new List<string>();
             dialogNameLabel.Add(Resource.CostPageDeleteItem);
@@ -217,7 +239,7 @@ namespace Apportionment2.Pages
                 if (nameLabel == null)
                     return;
 
-                renamedUserObject = nameLabel.BindingContext;
+                _renamedUserObject = nameLabel.BindingContext;
                 RefreshPage();
             }
         }
@@ -248,27 +270,16 @@ namespace Apportionment2.Pages
                 userShareLayout.BackgroundColor = backGroundColor;
                 Users user = _users.FirstOrDefault(n => n.id == userShare.UserId);
 
+
+                
+
                 CustomEntry share = Utils.GetDoubleEntry(userShare, 100, 15, Color.Green);
                 share.BackgroundColor = backGroundColor;
                 share.TextChanged += EntryValue_Replaced;
                 share.Focused += EntryValue_Focused;
-                string userName = user.Name;
-                
-                if (string.IsNullOrEmpty(userName) || ((renamedUserObject is UserCostShares ucs) && (ucs.id == userShare.id)))
-                {
-                    CustomEntry payerNameEntry = NameEntry(user, userName, backGroundColor);
-                    renamedUserObject = null;
-                    emptyNameEntry = payerNameEntry;
-                    nameEntries.Add(payerNameEntry);
-                    userShareLayout.Children.Add(payerNameEntry);
-                }
-                else
-                {
-                    Label payerNameLabel = NameLabel(userShare, userName, backGroundColor);
-                    nameLabels.Add(payerNameLabel);
-                    userShareLayout.Children.Add(payerNameLabel);
-                }
 
+                AddPayerObject(userShareLayout, user, userShare, backGroundColor);
+               
                 share.Text = $"{userShare.Share:0.00}";
                 share.Unfocused += EntryUserShare_Unfocused;
 
@@ -278,6 +289,24 @@ namespace Apportionment2.Pages
 
                 StackLayoutScroll.Children.Add(paymentsListLayout);
                 colorIndex++;
+            }
+        }
+
+        private void AddPayerObject(StackLayout userShareLayout, Users user, UserCostShares userShare, Color backGroundColor)
+        {
+            if (string.IsNullOrEmpty(user.Name) || ((_renamedUserObject is UserCostShares ucs) && (ucs.id == userShare.id)))
+            {
+                CustomEntry payerNameEntry = NameEntry(user, user.Name, backGroundColor);
+                _renamedUserObject = null;
+                _emptyNameEntry = payerNameEntry;
+                _nameEntries.Add(payerNameEntry);
+                userShareLayout.Children.Add(payerNameEntry);
+            }
+            else
+            {
+                Label payerNameLabel = NameLabel(userShare, user.Name, backGroundColor);
+                _nameLabels.Add(payerNameLabel);
+                userShareLayout.Children.Add(payerNameLabel);
             }
         }
 
@@ -540,7 +569,7 @@ namespace Apportionment2.Pages
 
         private int GetIndexFromString(string stringWithUser)
         {
-            int indexOfFirstSpace = stringWithUser.IndexOf(spaceChar, StringComparison.Ordinal);
+            int indexOfFirstSpace = stringWithUser.IndexOf(_space, StringComparison.Ordinal);
             var ind = stringWithUser.Substring(0, indexOfFirstSpace);
             int.TryParse(ind, out int index);
             return index;
@@ -560,6 +589,7 @@ namespace Apportionment2.Pages
                 SaveCostValues();
                 SaveUserCostShares();
                 SaveUsers();
+                SaveCostDescriptions();
                 // Exception is thrown if PopModalAsync is used.
                 await Navigation.PopAsync(true);
             }
@@ -568,6 +598,11 @@ namespace Apportionment2.Pages
         private void SaveCost()
         {
             SqlCrudUtils.Save(_cost);
+        }
+        private void SaveCostDescriptions()
+        {
+            foreach (ObjectAttrs oa in _objectAttrs)
+                SqlCrudUtils.Save(oa);
         }
 
         private void SaveCostValues()
@@ -660,6 +695,40 @@ namespace Apportionment2.Pages
             }
         }
 
+        private void EntryCostDescription_Unfocused(object sender, FocusEventArgs e)
+        {
+            Entry entry = sender as Entry;
+
+            ObjectAttrs objAttr = entry?.BindingContext as ObjectAttrs;
+
+            if ((objAttr != null) && (entry.Text != objAttr.AttrValue))
+            {
+                objAttr.AttrValue = entry.Text;
+                _objectAttrs.Add(objAttr);
+                _hasUnsavedData = true;
+            }
+            else if ((objAttr == null) && (entry.Text != _space))
+            {
+                CostValues costValue = entry?.BindingContext as CostValues;
+
+                if (costValue != null)
+                {
+                    ObjectAttrs newObjAttr = SqlCrudUtils.GetNewObjectAttrs("2", costValue.id, entry.Text, costValue.Sync);
+                    _objectAttrs.Add(newObjAttr);
+                    _hasUnsavedData = true;
+                }
+            }
+
+            entry.Unfocus();
+
+            //Device.BeginInvokeOnMainThread(async () =>
+            //{
+            //    RefreshPage();
+            //});
+            // RefreshPage();
+        }
+
+
         private void EntryName_Unfocused(object sender, FocusEventArgs e)
         {
             Entry entry = sender as Entry;
@@ -672,12 +741,13 @@ namespace Apportionment2.Pages
             if (entry.Text != user.Name)
             {
                 user.Name = entry.Text;
-                _hasUnsavedData = true;
+                SqlCrudUtils.Save(user);
+               // _hasUnsavedData = true;
             }
 
             entry.Unfocus();
 
-            foreach (Entry nameEntry in nameEntries)
+            foreach (Entry nameEntry in _nameEntries)
             {
                 if (nameEntry.BindingContext == user)
                     nameEntry.Text = user.Name;
@@ -812,7 +882,7 @@ namespace Apportionment2.Pages
             }
             else
             {
-                int indexOfFirstSpace = currencyString.IndexOf(spaceChar, StringComparison.Ordinal);
+                int indexOfFirstSpace = currencyString.IndexOf(_space, StringComparison.Ordinal);
                 string id = currencyString.Substring(0, indexOfFirstSpace);
                 CurrencyDictionary currency = currenciesList.FirstOrDefault(n=>n.id == id);
 
@@ -826,18 +896,19 @@ namespace Apportionment2.Pages
         }
 
         bool _isNewCostCreated = false;
-        private Label paymentsLabel;
-        private Entry emptyNameEntry;
+        private Label _paymentsLabel;
+        private Entry _emptyNameEntry;
         private CurrencyDictionary _defaultCurrency;
         private List<CostValues> _costValues = new List<CostValues>();
+        private List<ObjectAttrs> _objectAttrs = new List<ObjectAttrs>();
         private List<UserCostShares> _userCostShares = new List<UserCostShares>();
         private List<Users> _users = new List<Users>();
-        private List<CustomEntry> nameEntries = new List<CustomEntry>();
-        private List<Label> nameLabels = new List<Label>();
-        private string spaceChar = ((char)32).ToString();
+        private List<CustomEntry> _nameEntries = new List<CustomEntry>();
+        private List<Label> _nameLabels = new List<Label>();
+        private string _space = ((char)32).ToString();
         private string _tripId;
         private Costs _cost;
         private bool _hasUnsavedData = false;
-        private object renamedUserObject;
+        private object _renamedUserObject;
     }
 }

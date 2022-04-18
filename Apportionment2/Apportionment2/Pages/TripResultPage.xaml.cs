@@ -478,6 +478,9 @@ namespace Apportionment2.Pages
 
             sb.Append(CheckAlco(u));
 
+            if (u.Name.ToLower().StartsWith("рим"))
+                sb.Append(" Не ждет милостей от природы и скидок от S7, а летит, когда хочет.");
+           
             return sb.ToString();
         }
 
