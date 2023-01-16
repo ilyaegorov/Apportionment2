@@ -82,7 +82,7 @@ namespace Apportionment2.Pages
             }
 
             {
-                await Navigation.PopAsync(false);
+                await Navigation.PopModalAsync(false);
             }
         }
 
