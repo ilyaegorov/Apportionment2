@@ -312,9 +312,6 @@ namespace Apportionment2.Pages
             List<string> stringValue = GetTemplateStrings(indexOfMutualSettlementTableSecondStringBegin,
                           indexOfMutualSettlementTableSecondStringEnd);
 
-            //string aboveZeroUserId = aboveZeroUserSums[ms].UserId;
-            //string lessZeroUserId = lessThanZeroUserSums[b].UserId;
-
             string userNameAboveZero = App.Database.Table<Users>().FirstOrDefault(n => n.id == aboveZeroUserId).Name;
             string userNameLessZero = App.Database.Table<Users>().FirstOrDefault(n => n.id == lessZeroUserId).Name;
 
