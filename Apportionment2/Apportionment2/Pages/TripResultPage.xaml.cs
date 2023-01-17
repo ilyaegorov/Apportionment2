@@ -145,7 +145,7 @@ namespace Apportionment2.Pages
                     "UNION all "+
                     "select cv.TripId, cv.CostId, cv.UserId, sum(cv.Value * IFNULL(cer.Rate, 1)) sumSpendByUser, 0, 0 "+
                     "from CostValues cv "+
-                    "left join CurrencyExchangeRate cer on cv.CurrencyId = cer.CurrencyIdFrom and cv.TripId = '" + _trip.id + "' " +
+                    "left join CurrencyExchangeRate cer on cv.CurrencyId = cer.CurrencyIdFrom and cer.TripId = '" + _trip.id + "' " +
                     "left join CurrencyDictionary cd on cd.Id = cv.CurrencyId "+
                     "where cv.CostId = '" + cost.id + "' GROUP BY cv.TripId, cv.CostId, cv.UserId) "+
                     "GROUP by TripId, CostId, UserId ";
@@ -162,11 +162,6 @@ namespace Apportionment2.Pages
                       "left join CurrencyDictionary cd on cd.Id = cv.CurrencyId " +
                       "where cv.CostId ='" + cost.id + "' ),0)";
 
-            //Select cv.VALUE* IFNULL(cer.Rate, 1), cv.VALUE, cd.Code as costSum
-            //from CostValues cv
-            //left join CurrencyExchangeRate cer on cv.CurrencyId = cer.CurrencyIdFrom and cv.TripId = 1
-            //left join CurrencyDictionary cd on cd.Id = cv.CurrencyId
-
             var cmd = App.Database.CreateCommand(sql);
             return cmd.ExecuteScalar<double>();
         }
@@ -179,7 +174,6 @@ namespace Apportionment2.Pages
         private async void CreateXml()
         {
             _htmlResult.Clear();
-
             m_HtmlStrings = await DependencyService.Get<IHtmlReport>().LoadFromTemlate("ReportTemplateCurrency.html");
 
             ReplaceTemplateValues();

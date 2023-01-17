@@ -78,12 +78,9 @@ namespace Apportionment2.Pages
 
                 if (IsBaseCurrency)
                     SetBaseCurrency(newCurrency);
-
             }
 
-            {
-                await Navigation.PopModalAsync(false);
-            }
+            await Navigation.PopModalAsync(false);
         }
 
         private TripCurrencies CreateTripCurrencies(string tripId, string sync, string currencyId)
