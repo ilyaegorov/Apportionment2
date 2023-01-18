@@ -3,6 +3,6 @@
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.ALLOWBACKUP" />
+	<uses-permission android:name="android.permission.ALLOWBACKUP" />
 	<application android:label="Apportion" android:icon="@drawable/icon"></application>
 </manifest>
