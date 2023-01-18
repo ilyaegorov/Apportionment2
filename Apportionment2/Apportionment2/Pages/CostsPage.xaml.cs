@@ -6,6 +6,7 @@ using Xamarin.Forms.Xaml;
 using System.Linq;
 using Apportionment2.Interfaces;
 using Apportionment2.ViewModels;
+using System.Collections.Generic;
 
 namespace Apportionment2.Pages
 {
@@ -30,13 +31,12 @@ namespace Apportionment2.Pages
 
 	        if (string.IsNullOrEmpty(_trip.Name))
 	        {
-
 	            TripNamePage page = new TripNamePage(_trip);
-	            Navigation.PushAsync(page);
+                Navigation.PushAsync(page);
             }
 
 	        Title = _trip.Name;
-
+           
             RefreshPage();
             base.OnAppearing();
         }
@@ -58,9 +58,6 @@ namespace Apportionment2.Pages
             CostsList.ItemsSource = costsCollection;
             CostsList.SeparatorVisibility = SeparatorVisibility.Default;
             CostsList.SeparatorColor = Color.White;
-
-            
-           //TripItogLabel.Text = string.Format(CultureInfo.InvariantCulture, "{1}: {0:0.00}", sumPot, Resource.PotPageItog);
         }
 
 	    private void TripNameEntry_OnCompleted(object sender, EventArgs e)
@@ -80,19 +77,9 @@ namespace Apportionment2.Pages
 
             if (itemViewModel != null)
 	        {
-                //var pip = new PotItemPage(itemViewModel.PotItems);
-                //await Navigation.PushAsync(pip);
-
-
 	            CostPage pip = new CostPage(itemViewModel.Cost);
 	            await Navigation.PushAsync(pip, false);
 	        }
-
-	        //else if (itemViewModel.AddNewItem)
-	        //{
-	        //    ButtonAddPot_OnClicked(null, null);
-	        //}
-
         }
 
         /// <summary>
@@ -186,7 +173,6 @@ namespace Apportionment2.Pages
             else if (action == Resource.CalcApportionPageExit)
             {
                 var closer = DependencyService.Get<ICloseApplication>();
-
                 closer?.CloseApplication();
             }
         }
@@ -195,7 +181,6 @@ namespace Apportionment2.Pages
 	    {
 	        if (Utils.GetBaseTripCurrencies(_trip.id) == null)
 	        {
-	           // await DisplayAlert(null, Resource.TripCurrenciesPageSetBaseCurrencyMessage, Resource.Ok);
 	            TripCurrenciesPage currenciesPage = new TripCurrenciesPage(_trip, true);
 	            await Navigation.PushAsync(currenciesPage , true);
 	            return;
@@ -216,8 +201,33 @@ namespace Apportionment2.Pages
 
         private async void AddButton_OnClicked(object sender, EventArgs e)
 	    {
-	        CostPage costPage = new CostPage(_trip.id);
-	        await Navigation.PushAsync(costPage);
+            var userCostShares = App.Database.Table<UserCostShares>().Where(n => n.TripId == _trip.id).ToList();
+
+            if (userCostShares.Count < 1)
+            {
+                OpenCostPage();
+            }
+            else
+            {
+                var result = await DisplayAlert("", Resource.CopyApportionmentScheme,
+                      Resource.Yes, Resource.No);
+
+                if (result)
+                {
+                    CostPage costPage = new CostPage(_trip.id, userCostShares.Last().CostId);
+                    await Navigation.PushAsync(costPage);
+                }
+                else
+                {
+                    OpenCostPage();
+                }
+            }
+        }
+
+        private async void OpenCostPage()
+        {
+            CostPage costPage = new CostPage(_trip.id);
+            await Navigation.PushAsync(costPage);
         }
 
         private async void CostListItem_OnLongClicked(object sender, SelectedItemChangedEventArgs e)

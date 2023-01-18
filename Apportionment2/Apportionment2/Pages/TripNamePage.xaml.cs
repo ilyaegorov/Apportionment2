@@ -27,8 +27,7 @@ namespace Apportionment2.Pages
             InitializeComponent ();
 		}
 
-        private bool _isNewTripCreated = false;
-
+       
         public TripNamePage(Trips trip)
 	    {
 	        _trip = trip;
@@ -47,12 +46,11 @@ namespace Apportionment2.Pages
                     await System.Threading.Tasks.Task.Delay(250);
                     TripNameEntry.Focus();
                 });
+
                 _isNewTripCreated = false;
             }
 
             base.OnAppearing();
-
-
         }
 
 	    private void Refresh()
@@ -71,9 +69,25 @@ namespace Apportionment2.Pages
 
         protected override bool OnBackButtonPressed()
         {
+            Navigation.PopAsync();
+
             CostsPage costsPage = new CostsPage(_trip);
             Navigation.PushAsync(costsPage, false);
+
+            List<Users> users = Utils.GetUsers(_trip.id);
+            
+            // Create users for the first time.
+            if (users.Count < 1)
+            {
+                SelectUserDialogPage page = new SelectUserDialogPage(_trip.id);
+                Navigation.PushAsync(page, false);
+            }
+         
             return true;
+        }
+        private void OnBackButtonPressed(object sender, EventArgs e)
+        {
+            OnBackButtonPressed();
         }
 
         private void DateEndDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
@@ -87,8 +101,6 @@ namespace Apportionment2.Pages
 	        _trip.DateBegin = e.NewDate.ToString(App.DateFormat);
 	        SqlCrudUtils.Save(_trip);
         }
-
-	    private Trips _trip;
 
 	    private  void TripNameEntry_OnUnfocused(object sender, FocusEventArgs e)
 	    {
@@ -110,5 +122,8 @@ namespace Apportionment2.Pages
             Entry entry = sender as Entry;
             entry?.Unfocus();
         }
+
+        private Trips _trip;
+        private bool _isNewTripCreated = false;
     }
 }

@@ -881,4 +881,8 @@
     <value>Users from other trips</value>
     <comment>Users from other trips</comment>
   </data>
+  <data name="CopyApportionmentScheme" xml:space="preserve">
+    <value>Do copy apportion scheme from the last cost?</value>
+    <comment>CopyApportionmentScheme</comment>
+  </data>
 </root>

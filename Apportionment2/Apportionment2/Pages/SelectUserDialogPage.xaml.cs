@@ -15,8 +15,6 @@ namespace Apportionment2.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SelectUserDialogPage : ContentPage
-
-    //public partial class SelectUserDialogPage : PopupPage
     {
 		public SelectUserDialogPage (string tripId)
 		{
@@ -26,7 +24,15 @@ namespace Apportionment2.Pages
             _tripId = tripId;
             _isPayers = true;
         }
-
+        public SelectUserDialogPage(string tripId, bool areUsersFormOtherProjets)
+        {
+            InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
+            NavigationPage.SetHasNavigationBar(this, false);
+            _tripId = tripId;
+            _isPayers = true;
+            _areUsersFromOtherProjects = areUsersFormOtherProjets;
+        }
         public SelectUserDialogPage(string tripId, string costId, bool isPayers)
         {
             InitializeComponent();
@@ -39,7 +45,7 @@ namespace Apportionment2.Pages
 
         protected override void OnAppearing()
         {
-            TitleLabel.Text = string.IsNullOrEmpty(_costId) 
+            TitleLabel.Text = _areUsersFromOtherProjects
                 ? Resource.UsersFromOtherTrips 
                 :_isPayers ? Resource.CostPagePayments : Resource.Participants;
 
@@ -48,7 +54,7 @@ namespace Apportionment2.Pages
 
             // Gets list of trip costs.
             string sql = _isPayers
-                ? string.IsNullOrEmpty(_costId) ? usersFromOtherTripsSql() : usersForPaymentSql()
+                ? _areUsersFromOtherProjects ? usersFromOtherTripsSql() : usersForPaymentSql()
                 : usersForShareSql();
 
             var cmd = App.Database.CreateCommand(sql);
@@ -102,16 +108,9 @@ namespace Apportionment2.Pages
             StackLayout usersListStacklayout = GetNewStackLayout(null);
             int colorIndex = 0;
 
-            if (!string.IsNullOrEmpty(_costId))
+            if (!_areUsersFromOtherProjects)
                 AddNewUserLayout();
-            //StackLayout addNewUserLayout = GetNewStackLayout(null);
-
-                //LabelWithLongClick addNewUserLabel =
-                //    GetNameLabel(null, Resource.AddNewParticipant, 140, 15, GetBackgroundColor(colorIndex));
-                //addNewUserLayout.Children.Add(addNewUserLabel);
-                //addNewUserLabel.Clicked += (s, e) => AddNewUserLabel_OnTapped(addNewUserLabel, e);
-                //StackLayoutScroll.Children.Add(addNewUserLayout);
-
+          
             colorIndex++;
 
             foreach (Users user in _users)
@@ -151,16 +150,14 @@ namespace Apportionment2.Pages
                 colorIndex++;
             }
 
-            if (!string.IsNullOrEmpty(_costId))
+            if (!_areUsersFromOtherProjects)
                 AddUserFromAnotherTripsLayout(colorIndex);
         }
 
         private void AddNewUserLayout()
         {
             StackLayout addNewUserLayout = GetNewStackLayout(null);
-
-            LabelWithLongClick addNewUserLabel =
-                GetNameLabel(null, Resource.AddNewParticipant, 140, 15, GetBackgroundColor(0));
+            LabelWithLongClick addNewUserLabel = GetNameLabel(null, Resource.AddNewParticipant, 140, 15, GetBackgroundColor(0));
             addNewUserLayout.Children.Add(addNewUserLabel);
             addNewUserLabel.Clicked += (s, e) => AddNewUserLabel_OnTapped(addNewUserLabel, e);
             StackLayoutScroll.Children.Add(addNewUserLayout);
@@ -178,10 +175,9 @@ namespace Apportionment2.Pages
 
         private async void AddUserFromAnotherTripsLabel_OnTapped(object sender, EventArgs e)
         {
-            var page = new SelectUserDialogPage(_tripId);
+            var page = new SelectUserDialogPage(_tripId, true);
             await Navigation.PushAsync(page);
         }
-
 
         private void AddNewUserLabel_OnTapped(object sender, EventArgs e)
         {
@@ -228,18 +224,13 @@ namespace Apportionment2.Pages
 
             entry.Unfocus();
             renamedUser = null;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                Refresh();
-            });
-            // RefreshPage();
+            Device.BeginInvokeOnMainThread(() => { Refresh(); });
         }
 
         private Switch UserSwithch(object bindingContext)
         {
             Switch userSwitch = new Switch();
             userSwitch.BindingContext = bindingContext;
-          //  userSwitch.Toggled += (s, e) => userSwitchOnToggled(bindingContext, e);
             return userSwitch;
         }
 
@@ -433,14 +424,13 @@ namespace Apportionment2.Pages
                     SqlCrudUtils.Save(newUserCostShare);
                 }
             }
+
             await Navigation.PopAsync(false);
-           // await Navigation.PopPopupAsync();
         }
 
         private async void CancelButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync(false);
-          //  await Navigation.PopPopupAsync();
         }
 
         private string _tripId;
@@ -451,5 +441,6 @@ namespace Apportionment2.Pages
         private Color selectedColor = Color.LightBlue;
         private string _costId;
         private bool _isPayers = false;
+        private bool _areUsersFromOtherProjects = false;
     }
 }

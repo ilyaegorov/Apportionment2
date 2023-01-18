@@ -25,6 +25,22 @@ namespace Apportionment2.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
+
+        public CostPage(string tripId, string previousCostId): this(tripId)
+        {
+            var previousCostShares = App.Database.Table<UserCostShares>().Where(n => n.CostId == previousCostId).ToList();
+            
+            foreach (var share in previousCostShares)
+            {
+                UserCostShares previousCostUserShare = SqlCrudUtils.GetNewUserCostShare(share.UserId, _cost.id, _tripId);
+                previousCostUserShare.Share = share.Share;
+                _userCostShares.Add(previousCostUserShare);
+            }
+
+            if (previousCostShares.Count > 0)
+                _hasUnsavedData = true;
+        }
+
         public CostPage(Costs cost) 
         {
             _tripId = cost.TripId;
@@ -248,7 +264,6 @@ namespace Apportionment2.Pages
         {
             var page = new SelectUserDialogPage(_tripId, _cost.id, true);
             await Navigation.PushAsync(page);
-            // AddPayment();
         }
        
         private void CreateParticipantsList()
@@ -269,9 +284,6 @@ namespace Apportionment2.Pages
                 userShareLayout.Padding = new Thickness(5, 0, 0, 0);
                 userShareLayout.BackgroundColor = backGroundColor;
                 Users user = _users.FirstOrDefault(n => n.id == userShare.UserId);
-
-
-                
 
                 CustomEntry share = Utils.GetDoubleEntry(userShare, 100, 15, Color.Green);
                 share.BackgroundColor = backGroundColor;
@@ -312,7 +324,6 @@ namespace Apportionment2.Pages
 
         private async void UserShareLayout_OnTapped(object sender, TextChangedEventArgs e)
         {
-            //AddUserShare();
             var page = new SelectUserDialogPage(_tripId, _cost.id, false);
             await Navigation.PushAsync(page);
         }
@@ -636,10 +647,14 @@ namespace Apportionment2.Pages
         {
             if (_hasUnsavedData)
             {
+             
                 // Begin an asyncronous task on the UI thread because we intend to ask the users permission.
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    if (await DisplayAlert("Exit page?", "Are you sure you want to exit this page? You will not be able to continue it.", "Yes", "No"))
+                    if (await DisplayAlert("Exit page?", 
+                        "Are you sure you want to exit this page? You will not be able to continue it.",
+                        Resource.Yes,
+                        Resource.No))
                     {
                         await Navigation.PopAsync(false);
                     }

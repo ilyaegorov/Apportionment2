@@ -24,7 +24,6 @@ namespace Apportionment2.Extensions
         /// <param name="sender">The list view item</param>
         public void OnLongClicked(object sender, object item)
         {
-
             LongClicked?.Invoke(this, new SelectedItemChangedEventArgs(item));
         }
     }

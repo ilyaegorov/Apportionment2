@@ -869,4 +869,8 @@
     <value>Участники из других путешествий</value>
     <comment>UsersFromOtherTrips</comment>
   </data>
+  <data name="CopyApportionmentScheme" xml:space="preserve">
+    <value>Скопировать схему с предыдущего расхода?</value>
+    <comment>CopyApportionmentScheme</comment>
+  </data>
 </root>

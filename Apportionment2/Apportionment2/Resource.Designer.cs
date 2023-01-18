@@ -1742,5 +1742,13 @@ namespace Apportionment2 {
                 return ResourceManager.GetString("UsersFromOtherTrips", resourceCulture);
             }
         }
+
+        public static string CopyApportionmentScheme
+        {
+            get
+            {
+                return ResourceManager.GetString("CopyApportionmentScheme", resourceCulture);
+            }
+        }
     }
 }

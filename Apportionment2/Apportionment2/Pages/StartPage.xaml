@@ -43,10 +43,10 @@
                 Style="{StaticResource ButtonStyle}" />
         <Button x:Name="ButtonAbout"
                 Clicked="ButtonAbout_Click"
-                Style="{StaticResource ButtonStyle}" />
+                Style="{StaticResource ButtonStyle}" />-->
             <Button x:Name="ButtonLoadDb"
                 Clicked="ButtonLoadDb_Click"
-                Style="{StaticResource ButtonStyle}" />-->
+                Style="{StaticResource ButtonStyle}" />
             <Button x:Name="ButtonExportDb"
                 Clicked="ButtonExportDb_Click"
                 Style="{StaticResource ButtonStyle}" />

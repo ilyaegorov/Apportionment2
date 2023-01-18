@@ -104,6 +104,6 @@
                          WidthRequest="100"
                          VerticalOptions="CenterAndExpand"
                          Clicked="AddButton_OnClicked" />
-            </StackLayout>
-    </StackLayout>
+        </StackLayout>
+     </StackLayout>
 </ContentPage>

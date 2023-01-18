@@ -40,12 +40,11 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0" >
-        <StackLayout Style="{StaticResource StackLayout}"  Orientation="Vertical">
+    <StackLayout Style="{StaticResource StackLayout}" VerticalOptions="FillAndExpand" Spacing="0"  Padding="10">
+        <StackLayout Style="{StaticResource StackLayout}"  Padding="0" VerticalOptions="Start" Spacing="0">
+            
             <Entry x:Name ="TripNameEntry"
-                              
-                                  
-                                FontSize="20"
+                   FontSize="20"
                    BackgroundColor="#F5F5F5"
                    TextColor="#474b4f"
                    HorizontalOptions="FillAndExpand"
@@ -54,9 +53,8 @@
                    Margin="0"
                    Completed="TripNameEntry_Completed"
                    Unfocused="TripNameEntry_OnUnfocused"
-                   ClearButtonVisibility="WhileEditing"
-                                
-                                />     
+                   ClearButtonVisibility="WhileEditing"/>
+            
             <StackLayout Style="{StaticResource StackLayout}"  Orientation="Horizontal">
                 
                 <Label x:Name ="DateStartLabel"
@@ -70,6 +68,7 @@
                             DateSelected="DateStartDatePicker_OnDateSelected"
                             HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
+            
             <StackLayout Style="{StaticResource StackLayout}"  Orientation="Horizontal">
 
                 <Label x:Name ="DateEndLabel"
@@ -84,6 +83,23 @@
                             DateSelected ="DateEndDatePicker_OnDateSelected" 
                             HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
+          
         </StackLayout>
+
+        <StackLayout BackgroundColor="#F5F5F5" 
+                     Orientation="Horizontal" 
+                     VerticalOptions="EndAndExpand" 
+                     HeightRequest="50"
+                     Padding="5">
+
+            <ImageButton Source="Save.png"
+                         HorizontalOptions="EndAndExpand"
+                         BackgroundColor="Transparent"     
+                         VerticalOptions="CenterAndExpand"
+                         WidthRequest="100"
+                         Clicked="OnBackButtonPressed" />
+
+        </StackLayout>
+        
     </StackLayout>
 </ContentPage>

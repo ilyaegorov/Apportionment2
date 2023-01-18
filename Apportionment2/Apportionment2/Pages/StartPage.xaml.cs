@@ -29,6 +29,7 @@ namespace Apportionment2.Pages
                 DateEnd = App.DataEnd,
                 id = Guid.NewGuid().ToString()
             };
+
             CostsPage costsPage = new CostsPage(newTrip);
             await Navigation.PushAsync(costsPage);
         }
