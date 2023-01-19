@@ -208,17 +208,23 @@ namespace Apportionment2.Pages
             InsertCurrenciesLines();
            // InsertTripSumLines();
 
-            for (int i = currencyIndex + 1; i < costDataTemplateStringStartIndex; i++)
+            for (int i = currencyIndex + 1; i < potsDataTableStartIndex - 2; i++)
                 _htmlResult.Add(m_HtmlStrings[i]);
 
-            InsertCostsDataInHtml(costDataTemplateStringStartIndex, costDataTemplateStringEndIndex);
+            if (_results.Any())
+                InsertMutualSettlementsStrings(indexOfUserTableEnd,
+                    indexOfMutualSettlementTableFirstStringEnd,
+                    indexOfMutualSettlementTableSecondStringBegin,
+                    indexOfMutualSettlementTableSecondStringEnd);
 
-            for (int i = potsDataTabelEndIndex; i < indexOfSecondTableSecondStringBegin; i++)
-                _htmlResult.Add(m_HtmlStrings[i]);
+            //InsertCostsDataInHtml(costDataTemplateStringStartIndex, costDataTemplateStringEndIndex);
 
-            InsertUsersDataStrings(indexOfSecondTableSecondStringBegin, indexOfSecondTableSecondStringEnd);
+            //for (int i = potsDataTabelEndIndex; i < indexOfSecondTableSecondStringBegin; i++)
+            //    _htmlResult.Add(m_HtmlStrings[i]);
 
-            _htmlResult.Add(m_HtmlStrings[indexOfSecondTableEnd]);
+            //InsertUsersDataStrings(indexOfSecondTableSecondStringBegin, indexOfSecondTableSecondStringEnd);
+
+            //_htmlResult.Add(m_HtmlStrings[indexOfSecondTableEnd]);
 
             foreach (var user in _users)
                 InsertUserDataStrings(indexOfSecondTableEnd,
@@ -228,12 +234,25 @@ namespace Apportionment2.Pages
                     indexOfUserInsideTableEnd,
                     indexOfUserTableTotalStringEnd,
                     indexOfUserTableEnd);
+          
+            for (int i = potsDataTableStartIndex - 2; i < costDataTemplateStringStartIndex; i++)
+                _htmlResult.Add(m_HtmlStrings[i]);
 
-            if (_results.Any())
-                InsertMutualSettlementsStrings(indexOfUserTableEnd,
-                    indexOfMutualSettlementTableFirstStringEnd,
-                    indexOfMutualSettlementTableSecondStringBegin,
-                    indexOfMutualSettlementTableSecondStringEnd);
+            InsertCostsDataInHtml(costDataTemplateStringStartIndex, costDataTemplateStringEndIndex);
+
+            for (int i = potsDataTabelEndIndex; i < indexOfSecondTableSecondStringBegin; i++)
+                _htmlResult.Add(m_HtmlStrings[i]);
+
+            InsertUsersDataStrings(indexOfSecondTableSecondStringBegin, indexOfSecondTableSecondStringEnd);
+
+           // _htmlResult.Add(m_HtmlStrings[indexOfSecondTableEnd]);
+
+
+            //if (_results.Any())
+            //    InsertMutualSettlementsStrings(indexOfUserTableEnd,
+            //        indexOfMutualSettlementTableFirstStringEnd,
+            //        indexOfMutualSettlementTableSecondStringBegin,
+            //        indexOfMutualSettlementTableSecondStringEnd);
 
             CreateResultHtml();
         }
