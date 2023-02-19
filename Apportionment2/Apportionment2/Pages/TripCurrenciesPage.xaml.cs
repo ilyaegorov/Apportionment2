@@ -78,13 +78,6 @@ namespace Apportionment2.Pages
             if (_baseCurrency == null)
                 return;
 
-            //var sql = "Select distinct cd.* from CostValues cv join CurrencyDictionary cd on cv.CurrencyId = cd.id " +
-            //"where cd.id <> '" + _baseCurrency.id + "' ";
-            //var cmd = App.Database.CreateCommand(sql);
-
-            //var sql = "SELECT tc.* FROM TripCurrencies tc JOIN ObjectAttrs oa on oa.ObjectId = tc.id and oa.AttrId='1' " +
-            //          "where tc.TripId = '" + _trip.id + "' ";
-
             var sql = "Select distinct cd.* from TripCurrencies tv join CurrencyDictionary cd on cd.id = tv.CurrencyId " +
             "where cd.id <> '" + _baseCurrency.id + "' and tv.TripId = '" + _trip.id + "'";
 
@@ -213,7 +206,7 @@ namespace Apportionment2.Pages
                 nameTo.HorizontalTextAlignment = TextAlignment.Start;
                 //Label codeFrom= Utils.GetLabel(_baseCurrency, _baseCurrency.Code, 50, 40, 15);
                 //Label nameFrom = Utils.GetLabel(_baseCurrency, _baseCurrency.Name, 200, 40, 15);
-                Entry exchangeRateEntry = Utils.GetDoubleEntry(rate, 100, 15, Color.Black);
+                Entry exchangeRateEntry = Utils.GetDoubleEntry(rate, 200, 15, Color.Black);
 
                 exchangeRateEntry.BackgroundColor = backGroundColor;
                 codeTo.BackgroundColor = backGroundColor;
@@ -224,7 +217,7 @@ namespace Apportionment2.Pages
                 exchangeRateEntry.BackgroundColor = backGroundColor;
                 exchangeRateEntry.TextChanged += exchangeRateEntry_Replaced;
                 exchangeRateEntry.Focused += exchangeRateEntry_Focused;
-                exchangeRateEntry.Text = $"{rate.Rate :0.00}";
+                exchangeRateEntry.Text = $"{rate.Rate :0.0000000000}";
                 exchangeRateEntry.Unfocused += exchangeRateEntry_Unfocused;
 
                 exchangeRateItemLayout.Children.Add(codeTo);
